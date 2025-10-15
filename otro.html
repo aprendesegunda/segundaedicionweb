@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Imágenes a Dibujos</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+                border-radius: 10px;
+  max-width: 1200px;
+  margin: 90px auto;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin-top: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        
+        .description {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        .upload-container {
+            border: 3px dashed #3498db;
+            border-radius: 10px;
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            background-color: #f8f9fa;
+            transition: all 0.3s;
+        }
+        
+        .upload-container:hover {
+            background-color: #e8f4fc;
+            border-color: #2980b9;
+        }
+        
+        .upload-container p {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: #34495e;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .upload-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            display: inline-block;
+        }
+        
+        .upload-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .control-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .control-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .slider {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #ddd;
+            outline: none;
+            border-radius: 4px;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+        }
+        
+        .canvas-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .canvas-wrapper {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .canvas-wrapper h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        canvas {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .convert-btn {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .convert-btn:hover {
+            background-color: #27ae60;
+        }
+        
+        .download-btn {
+            background-color: #9b59b6;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            background-color: #8e44ad;
+        }
+        
+        .reset-btn {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .reset-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.2rem;
+            color: #3498db;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+        }
+        h1{
+            color:black;
+        }
+           .btn-volver {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+      user-select: none;
+    }
+
+    .btn-volver:hover {
+      background-color: #2980b9;
+    }
+    </style>
+</head>
+<body>
+    <h1>Conversor de Imágenes a Dibujos</h1>
+    <p class="description">Convierte tus fotos en dibujos artísticos directamente en tu navegador</p>
+      <!-- Esto es un enlace con apariencia de botón -->
+  <a href="disenopresentaciontodo1.html" class="btn-volver">← Volver a Inicio</a>
+    <div class="container">
+        <div class="upload-container" id="uploadContainer">
+            <p>Selecciona una imagen o arrástrala aquí</p>
+            <label for="fileInput" class="upload-btn">Seleccionar imagen</label>
+            <input type="file" id="fileInput" class="file-input" accept="image/*">
+        </div>
+        
+        <div id="controls" class="hidden">
+            <div class="controls">
+                <div class="control-group">
+                    <label for="lineIntensity">Intensidad de líneas</label>
+                    <input type="range" id="lineIntensity" class="slider" min="1" max="10" value="3">
+                </div>
+                <div class="control-group">
+                    <label for="brightness">Brillo</label>
+                    <input type="range" id="brightness" class="slider" min="-100" max="100" value="0">
+                </div>
+                <div class="control-group">
+                    <label for="contrast">Contraste</label>
+                    <input type="range" id="contrast" class="slider" min="-100" max="100" value="0">
+                </div>
+            </div>
+            
+            <div class="canvas-container">
+                <div class="canvas-wrapper">
+                    <h3>Imagen Original</h3>
+                    <canvas id="originalCanvas"></canvas>
+                </div>
+                <div class="canvas-wrapper">
+                    <h3>Dibujo Resultante</h3>
+                    <canvas id="resultCanvas"></canvas>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button id="convertBtn" class="action-btn convert-btn">Convertir a Dibujo</button>
+                <button id="downloadBtn" class="action-btn download-btn">Descargar Dibujo</button>
+                <button id="resetBtn" class="action-btn reset-btn">Restablecer</button>
+            </div>
+        </div>
+        
+        <div id="loading" class="loading hidden">
+            Procesando imagen, por favor espere...
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos del DOM
+            const fileInput = document.getElementById('fileInput');
+            const uploadContainer = document.getElementById('uploadContainer');
+            const controls = document.getElementById('controls');
+            const originalCanvas = document.getElementById('originalCanvas');
+            const resultCanvas = document.getElementById('resultCanvas');
+            const convertBtn = document.getElementById('convertBtn');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const loading = document.getElementById('loading');
+            
+            const lineIntensitySlider = document.getElementById('lineIntensity');
+            const brightnessSlider = document.getElementById('brightness');
+            const contrastSlider = document.getElementById('contrast');
+            
+            const originalCtx = originalCanvas.getContext('2d');
+            const resultCtx = resultCanvas.getContext('2d');
+            
+            let originalImage = null;
+            
+            // Event listeners
+            fileInput.addEventListener('change', handleImageUpload);
+            uploadContainer.addEventListener('dragover', handleDragOver);
+            uploadContainer.addEventListener('drop', handleDrop);
+            convertBtn.addEventListener('click', convertToSketch);
+            downloadBtn.addEventListener('click', downloadSketch);
+            resetBtn.addEventListener('click', resetAll);
+            
+            // Manejar la subida de archivos
+            function handleImageUpload(e) {
+                const file = e.target.files[0];
+                if (file && file.type.match('image.*')) {
+                    loadImage(file);
+                }
+            }
+            
+            // Manejar el arrastre de archivos
+            function handleDragOver(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                uploadContainer.style.backgroundColor = '#e8f4fc';
+                uploadContainer.style.borderColor = '#2980b9';
+            }
+            
+            function handleDrop(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                uploadContainer.style.backgroundColor = '#f8f9fa';
+                uploadContainer.style.borderColor = '#3498db';
+                
+                const file = e.dataTransfer.files[0];
+                if (file && file.type.match('image.*')) {
+                    loadImage(file);
+                }
+            }
+            
+            // Cargar la imagen
+            function loadImage(file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        originalImage = img;
+                        displayOriginalImage();
+                        controls.classList.remove('hidden');
+                    };
+                    img.src = e.target.result;
+                };
+                
+                reader.readAsDataURL(file);
+            }
+            
+            // Mostrar la imagen original
+            function displayOriginalImage() {
+                // Ajustar el tamaño del canvas al de la imagen (con límites máximos)
+                const maxWidth = 500;
+                const maxHeight = 500;
+                
+                let width = originalImage.width;
+                let height = originalImage.height;
+                
+                if (width > maxWidth) {
+                    height = (maxWidth / width) * height;
+                    width = maxWidth;
+                }
+                
+                if (height > maxHeight) {
+                    width = (maxHeight / height) * width;
+                    height = maxHeight;
+                }
+                
+                originalCanvas.width = width;
+                originalCanvas.height = height;
+                resultCanvas.width = width;
+                resultCanvas.height = height;
+                
+                originalCtx.clearRect(0, 0, originalCanvas.width, originalCanvas.height);
+                originalCtx.drawImage(originalImage, 0, 0, width, height);
+                
+                resultCtx.clearRect(0, 0, resultCanvas.width, resultCanvas.height);
+            }
+            
+            // Convertir la imagen a dibujo
+            function convertToSketch() {
+                if (!originalImage) return;
+                
+                loading.classList.remove('hidden');
+                
+                // Usar setTimeout para permitir que se muestre el mensaje de carga
+                setTimeout(() => {
+                    const lineIntensity = parseInt(lineIntensitySlider.value);
+                    const brightness = parseInt(brightnessSlider.value);
+                    const contrast = parseInt(contrastSlider.value);
+                    
+                    // Dibujar la imagen original en el canvas de resultado
+                    resultCtx.drawImage(originalImage, 0, 0, resultCanvas.width, resultCanvas.height);
+                    
+                    // Obtener los datos de la imagen
+                    let imageData = resultCtx.getImageData(0, 0, resultCanvas.width, resultCanvas.height);
+                    let data = imageData.data;
+                    
+                    // Aplicar filtro de grises
+                    for (let i = 0; i < data.length; i += 4) {
+                        const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                        data[i] = avg;     // R
+                        data[i + 1] = avg; // G
+                        data[i + 2] = avg; // B
+                    }
+                    
+                    // Aplicar brillo y contraste
+                    applyBrightnessContrast(data, brightness, contrast);
+                    
+                    // Aplicar efecto de dibujo (detección de bordes)
+                    applySketchEffect(imageData, lineIntensity);
+                    
+                    // Volver a poner los datos procesados en el canvas
+                    resultCtx.putImageData(imageData, 0, 0);
+                    
+                    loading.classList.add('hidden');
+                }, 100);
+            }
+            
+            // Aplicar brillo y contraste
+            function applyBrightnessContrast(data, brightness, contrast) {
+                const factor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+                
+                for (let i = 0; i < data.length; i += 4) {
+                    // Aplicar brillo
+                    data[i] += brightness;     // R
+                    data[i + 1] += brightness; // G
+                    data[i + 2] += brightness; // B
+                    
+                    // Aplicar contraste
+                    data[i] = factor * (data[i] - 128) + 128;     // R
+                    data[i + 1] = factor * (data[i + 1] - 128) + 128; // G
+                    data[i + 2] = factor * (data[i + 2] - 128) + 128; // B
+                    
+                    // Asegurar que los valores estén en el rango [0, 255]
+                    data[i] = Math.max(0, Math.min(255, data[i]));
+                    data[i + 1] = Math.max(0, Math.min(255, data[i + 1]));
+                    data[i + 2] = Math.max(0, Math.min(255, data[i + 2]));
+                }
+            }
+            
+            // Aplicar efecto de dibujo
+            function applySketchEffect(imageData, intensity) {
+                const width = resultCanvas.width;
+                const height = resultCanvas.height;
+                const data = imageData.data;
+                
+                // Crear una copia de los datos originales para trabajar
+                const originalData = new Uint8ClampedArray(data);
+                
+                // Aplicar detección de bordes (simplificado)
+                for (let y = 1; y < height - 1; y++) {
+                    for (let x = 1; x < width - 1; x++) {
+                        const idx = (y * width + x) * 4;
+                        
+                        // Obtener los valores de los píxeles circundantes
+                        const top = originalData[((y - 1) * width + x) * 4];
+                        const bottom = originalData[((y + 1) * width + x) * 4];
+                        const left = originalData[(y * width + (x - 1)) * 4];
+                        const right = originalData[(y * width + (x + 1)) * 4];
+                        
+                        // Calcular el gradiente (detección de bordes simple)
+                        const gradX = right - left;
+                        const gradY = bottom - top;
+                        let gradient = Math.sqrt(gradX * gradX + gradY * gradY);
+                        
+                        // Ajustar según la intensidad
+                        gradient = Math.min(255, gradient * intensity);
+                        
+                        // Invertir para obtener líneas oscuras sobre fondo claro
+                        const value = 255 - gradient;
+                        
+                        // Aplicar el valor a todos los canales
+                        data[idx] = value;     // R
+                        data[idx + 1] = value; // G
+                        data[idx + 2] = value; // B
+                    }
+                }
+            }
+            
+            // Descargar el dibujo
+            function downloadSketch() {
+                if (!originalImage) return;
+                
+                const link = document.createElement('a');
+                link.download = 'dibujo.png';
+                link.href = resultCanvas.toDataURL('image/png');
+                link.click();
+            }
+            
+            // Restablecer todo
+            function resetAll() {
+                fileInput.value = '';
+                originalImage = null;
+                controls.classList.add('hidden');
+                originalCtx.clearRect(0, 0, originalCanvas.width, originalCanvas.height);
+                resultCtx.clearRect(0, 0, resultCanvas.width, resultCanvas.height);
+                lineIntensitySlider.value = 3;
+                brightnessSlider.value = 0;
+                contrastSlider.value = 0;
+            }
+        });
+    </script>
+</body>
+</html>

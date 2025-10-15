@@ -1,0 +1,2414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Pro - Generador Profesional de Códigos QR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --primary-light: #c7d2fe;
+            --secondary: #10b981;
+            --secondary-dark: #059669;
+            --accent: #f59e0b;
+            --accent-dark: #d97706;
+            --danger: #ef4444;
+            --danger-dark: #dc2626;
+            --dark: #1f2937;
+            --darker: #111827;
+            --light: #f9fafb;
+            --lighter: #f3f4f6;
+            --gray: #6b7280;
+            --border: #e5e7eb;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--dark);
+            line-height: 1.6;
+               border-radius: 10px;
+  max-width: 1200px;
+  margin: 90px auto;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 1400px;
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-weight: 800;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        header p {
+            font-weight: 400;
+            opacity: 0.9;
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .user-section {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 16px;
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .user-name {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-menu-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .user-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .user-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            width: 220px;
+            padding: 12px 0;
+            margin-top: 8px;
+            display: none;
+            z-index: 100;
+            border: 1px solid var(--border);
+        }
+
+        .user-dropdown.show {
+            display: block;
+        }
+
+        .user-dropdown-item {
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .user-dropdown-item:hover {
+            background: var(--lighter);
+        }
+
+        .user-dropdown-item i {
+            width: 20px;
+            color: var(--gray);
+            font-size: 1rem;
+        }
+
+        .app-body {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 700px;
+        }
+
+        .input-section {
+            flex: 1.2;
+            min-width: 400px;
+            padding: 35px;
+            border-right: 1px solid var(--border);
+            background: var(--light);
+            overflow-y: auto;
+            max-height: 800px;
+        }
+
+        .preview-section {
+            flex: 0.8;
+            min-width: 350px;
+            padding: 35px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 25px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--darker);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--darker);
+            font-size: 0.95rem;
+        }
+
+        .label-with-icon {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .preview-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 30px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .preview-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--darker);
+        }
+
+        .preview-description {
+            color: var(--gray);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        #qrcode {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 14px;
+            margin-top: 25px;
+            width: 100%;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-success {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: var(--secondary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background: var(--gray);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: var(--danger-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .notification {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            padding: 18px 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            transform: translateX(150%);
+            transition: transform 0.4s;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .data-preview {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .data-preview strong {
+            color: var(--primary);
+        }
+
+        .data-item {
+            margin-bottom: 10px;
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .data-item:last-child {
+            border-bottom: none;
+        }
+
+        .data-label {
+            font-weight: 600;
+            min-width: 100px;
+            color: var(--darker);
+        }
+
+        .data-value {
+            flex: 1;
+            color: var(--gray);
+        }
+
+        /* Pestañas de formulario */
+        .form-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            background: white;
+            border-radius: 10px;
+            padding: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .form-tab {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+            color: var(--gray);
+        }
+
+        .form-tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .form-tab-content {
+            display: none;
+        }
+
+        .form-tab-content.active {
+            display: block;
+        }
+
+        /* Estilos para redes sociales */
+        .social-input-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .social-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .facebook {
+            background: #3b5998;
+        }
+
+        .instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .twitter {
+            background: #1da1f2;
+        }
+
+        .linkedin {
+            background: #0077b5;
+        }
+
+        .youtube {
+            background: #ff0000;
+        }
+
+        .whatsapp {
+            background: #25d366;
+        }
+
+        .tiktok {
+            background: #000000;
+        }
+
+        .social-input {
+            flex: 1;
+        }
+
+        /* Personalización QR */
+        .qr-customization {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .color-picker {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .color-input {
+            width: 60px;
+            height: 44px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 2px solid var(--border);
+        }
+
+        .color-label {
+            min-width: 140px;
+            font-weight: 600;
+        }
+
+        .size-control {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .size-slider {
+            flex: 1;
+        }
+
+        .qr-pattern-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .pattern-option {
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .pattern-option:hover {
+            border-color: var(--primary);
+        }
+
+        .pattern-option.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .pattern-preview {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 8px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .analytics-preview {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .analytics-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--darker);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .analytics-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--lighter);
+            border-radius: 10px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        /* Modal de autenticación */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 450px;
+            padding: 35px;
+            border: 1px solid var(--border);
+        }
+
+        .modal-header {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .modal-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--darker);
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .modal-body {
+            margin-bottom: 25px;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-footer .btn {
+            flex: 1;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .user-list {
+            margin-top: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: var(--lighter);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .user-item:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+        }
+
+        .user-item.active {
+            background: var(--primary-light);
+            border: 1px solid var(--primary);
+        }
+
+        .user-item-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-item-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .user-item-name {
+            font-weight: 600;
+        }
+
+        .user-item-email {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .user-item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .user-item-action {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .user-item-action:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: var(--danger);
+        }
+
+        /* Estilos para campos avanzados */
+        .advanced-options {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .advanced-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .advanced-content {
+            display: none;
+            margin-top: 15px;
+        }
+
+        .advanced-content.show {
+            display: block;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload-btn {
+            background: var(--lighter);
+            border: 2px dashed var(--border);
+            color: var(--gray);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .file-upload-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        @media (max-width: 1024px) {
+            .app-body {
+                flex-direction: column;
+            }
+            
+            .input-section {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 25px;
+            }
+            
+            .preview-section {
+                padding: 25px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .user-section {
+                position: static;
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            header {
+                padding-bottom: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 0;
+            }
+            
+            header {
+                padding: 25px 20px;
+            }
+            
+            .input-section, .preview-section {
+                padding: 20px;
+            }
+            
+            .form-tabs {
+                flex-direction: column;
+            }
+            
+            .analytics-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .qr-pattern-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .cuadro {
+  background-color: #ffffff;
+  border: 3px solid #4CAF50;
+background-color:antiquewhite;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1><i class="fas fa-qrcode"></i> QR Pro - Generador Profesional</h1>
+        <p>Crea códigos QR avanzados con analytics, múltiples usuarios y personalización completa</p>
+        
+        <div class="user-section">
+            <div class="user-info" id="user-info">
+                <div class="user-avatar" id="user-avatar">U</div>
+                <div>
+                    <div class="user-name" id="user-name">Usuario</div>
+                </div>
+            </div>
+            <div class="user-menu">
+                <button class="user-menu-btn" id="user-menu-btn">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <div class="user-dropdown" id="user-dropdown">
+                    <div class="user-dropdown-item" id="manage-users">
+                        <i class="fas fa-users-cog"></i>
+                        <span>Gestionar Usuarios</span>
+                    </div>
+                    <div class="user-dropdown-item" id="new-user">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Nuevo Usuario</span>
+                    </div>
+                    <div class="user-dropdown-item" id="save-profile">
+                        <i class="fas fa-save"></i>
+                        <span>Guardar Perfil</span>
+                    </div>
+                    <div class="user-dropdown-item" id="export-data">
+                        <i class="fas fa-file-export"></i>
+                        <span>Exportar Datos</span>
+                    </div>
+                    <div class="user-dropdown-item" id="import-data">
+                        <i class="fas fa-file-import"></i>
+                        <span>Importar Datos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="app-body">
+        <div class="input-section">
+            <div class="section-title">
+                <i class="fas fa-user-cog"></i> Configuración de Perfil
+            </div>
+            
+            <!-- Pestañas del formulario -->
+            <div class="form-tabs">
+              <div class="form-tab active" data-tab="basic" onclick="window.location.href='escanerqr.html'">
+ escanea tu qr hay obtenes toda informacion descarga en foto la info
+</div>
+
+                <div class="form-tab active" data-tab="basic">Información Básica</div>
+                <div class="form-tab" data-tab="social">Redes Sociales</div>
+                <div class="form-tab" data-tab="customize">Personalizar QR</div>
+                <div class="form-tab" data-tab="advanced">Opciones Avanzadas</div>
+                 <div class="cuadro">
+    <a href="presentacion.html" class="boton">Volver Atrás</a>
+  </div>
+
+            </div>
+            
+            <!-- Contenido de pestañas -->
+            <div class="form-tab-content active" id="basic-tab">
+                <div class="form-group">
+                    <label for="nombre" class="label-with-icon">
+                        <i class="fas fa-user"></i> Nombre Completo
+                    </label>
+                    <input type="text" id="nombre" placeholder="Ej: Juan Pérez Rodríguez">
+                </div>
+                
+                <div class="form-group">
+                    <label for="titulo" class="label-with-icon">
+                        <i class="fas fa-briefcase"></i> Puesto / Profesión
+                    </label>
+                    <input type="text" id="titulo" placeholder="Ej: Director de Marketing Digital">
+                </div>
+                
+                <div class="form-group">
+                    <label for="telefono" class="label-with-icon">
+                        <i class="fas fa-phone"></i> Teléfono
+                    </label>
+                    <input type="tel" id="telefono" placeholder="+1 234 567 8900">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="label-with-icon">
+                        <i class="fas fa-envelope"></i> Email
+                    </label>
+                    <input type="email" id="email" placeholder="tu.email@empresa.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="empresa" class="label-with-icon">
+                        <i class="fas fa-building"></i> Empresa / Organización
+                    </label>
+                    <input type="text" id="empresa" placeholder="Nombre de tu empresa">
+                </div>
+                
+                <div class="form-group">
+                    <label for="sitio-web" class="label-with-icon">
+                        <i class="fas fa-globe"></i> Sitio Web
+                    </label>
+                    <input type="url" id="sitio-web" placeholder="https://www.tu-empresa.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="direccion" class="label-with-icon">
+                        <i class="fas fa-map-marker-alt"></i> Dirección
+                    </label>
+                    <textarea id="direccion" placeholder="Dirección completa de tu empresa"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="bio" class="label-with-icon">
+                        <i class="fas fa-file-alt"></i> Biografía Profesional
+                    </label>
+                    <textarea id="bio" placeholder="Breve descripción profesional y experiencia"></textarea>
+                </div>
+            </div>
+            
+            <div class="form-tab-content" id="social-tab">
+                <div class="form-group">
+                    <div class="social-input-group">
+                        <div class="social-icon facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <input type="url" id="facebook" class="social-input" placeholder="https://www.facebook.com/tu-perfil">
+                    </div>
+                    
+                    <div class="social-input-group">
+                        <div class="social-icon instagram">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <input type="url" id="instagram" class="social-input" placeholder="https://www.instagram.com/tu-perfil">
+                    </div>
+                    
+                    <div class="social-input-group">
+                        <div class="social-icon twitter">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <input type="url" id="twitter" class="social-input" placeholder="https://www.twitter.com/tu-perfil">
+                    </div>
+                    
+                    <div class="social-input-group">
+                        <div class="social-icon linkedin">
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                        <input type="url" id="linkedin" class="social-input" placeholder="https://www.linkedin.com/in/tu-perfil">
+                    </div>
+                    
+                    <div class="social-input-group">
+                        <div class="social-icon youtube">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <input type="url" id="youtube" class="social-input" placeholder="https://www.youtube.com/tu-canal">
+                    </div>
+
+                    <div class="social-input-group">
+                        <div class="social-icon whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <input type="url" id="whatsapp" class="social-input" placeholder="https://wa.me/tunumerodetelefono">
+                    </div>
+
+                    <div class="social-input-group">
+                        <div class="social-icon tiktok">
+                            <i class="fab fa-tiktok"></i>
+                        </div>
+                        <input type="url" id="tiktok" class="social-input" placeholder="https://www.tiktok.com/@tuusuario">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-tab-content" id="customize-tab">
+                <div class="qr-customization">
+                    <div class="form-group">
+                        <label for="qr-color" class="color-label">Color del QR</label>
+                        <div class="color-picker">
+                            <span>Principal:</span>
+                            <input type="color" id="qr-color" class="color-input" value="#000000">
+                            <span>Fondo:</span>
+                            <input type="color" id="qr-bg-color" class="color-input" value="#FFFFFF">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="qr-size">Tamaño del QR</label>
+                        <div class="size-control">
+                            <span>Pequeño</span>
+                            <input type="range" id="qr-size" class="size-slider" min="200" max="400" value="280">
+                            <span>Grande</span>
+                            <span id="size-value">280px</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Patrón del QR</label>
+                        <div class="qr-pattern-selector">
+                            <div class="pattern-option active" data-pattern="square">
+                                <div class="pattern-preview">
+                                    <i class="fas fa-square-full"></i>
+                                </div>
+                                <div>Cuadrados</div>
+                            </div>
+                            <div class="pattern-option" data-pattern="circle">
+                                <div class="pattern-preview">
+                                    <i class="fas fa-circle"></i>
+                                </div>
+                                <div>Círculos</div>
+                            </div>
+                            <div class="pattern-option" data-pattern="dot">
+                                <div class="pattern-preview">
+                                    <i class="fas fa-dot-circle"></i>
+                                </div>
+                                <div>Puntos</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="qr-logo">Logo Personalizado</label>
+                        <div class="file-upload">
+                            <div class="file-upload-btn">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <div>Haz clic para subir logo</div>
+                                <div class="file-name" id="file-name">No se ha seleccionado archivo</div>
+                            </div>
+                            <input type="file" id="qr-logo" accept="image/*">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analytics-preview">
+                    <div class="analytics-title">
+                        <i class="fas fa-chart-bar"></i> Analytics del QR
+                    </div>
+                    <div class="analytics-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="scan-count">0</div>
+                            <div class="stat-label">Escaneos</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="unique-scans">0</div>
+                            <div class="stat-label">Escaneos Únicos</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="last-scan">-</div>
+                            <div class="stat-label">Último Escaneo</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="success-rate">100%</div>
+                            <div class="stat-label">Tasa de Éxito</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-tab-content" id="advanced-tab">
+                <div class="advanced-options">
+                    <div class="advanced-toggle" id="advanced-toggle">
+                        <i class="fas fa-cogs"></i>
+                        <h3>Opciones Avanzadas</h3>
+                        <i class="fas fa-chevron-down" id="advanced-arrow"></i>
+                    </div>
+                    
+                    <div class="advanced-content" id="advanced-content">
+                        <div class="form-group">
+                            <label for="qr-type">Tipo de Contenido QR</label>
+                            <select id="qr-type">
+                                <option value="vcard">vCard (Contacto)</option>
+                                <option value="url">URL (Sitio Web)</option>
+                                <option value="wifi">Wi-Fi</option>
+                                <option value="email">Email</option>
+                                <option value="sms">SMS</option>
+                                <option value="calendar">Evento de Calendario</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="dynamic-qr" checked>
+                                <label for="dynamic-qr">QR Dinámico (Permite actualizar contenido)</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="tracking" checked>
+                                <label for="tracking">Habilitar seguimiento de escaneos</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="password-protect">
+                                <label for="password-protect">Proteger QR con contraseña</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="password-field" style="display: none;">
+                            <label for="qr-password">Contraseña del QR</label>
+                            <input type="password" id="qr-password" placeholder="Contraseña para acceder al contenido">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="expiration">Fecha de Expiración (Opcional)</label>
+                            <input type="date" id="expiration">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="custom-redirect">Redirección Personalizada (URL)</label>
+                            <input type="url" id="custom-redirect" placeholder="https://tu-dominio.com/landing">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="reset-all" class="btn btn-danger">
+                        <i class="fas fa-trash-alt"></i> Restablecer Todo
+                    </button>
+                    <button id="export-settings" class="btn btn-outline">
+                        <i class="fas fa-download"></i> Exportar Configuración
+                    </button>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="generar" class="btn btn-primary">
+                    <i class="fas fa-qrcode"></i> Generar QR Avanzado
+                </button>
+                <button id="guardar" class="btn btn-secondary">
+                    <i class="fas fa-save"></i> Guardar Perfil
+                </button>
+            </div>
+
+            <div class="data-preview" id="data-preview" style="display: none;">
+                <h4 style="margin-bottom: 15px; color: var(--primary);">
+                    <i class="fas fa-eye"></i> Vista Previa de Datos
+                </h4>
+                <div class="data-item">
+                    <span class="data-label">Nombre:</span>
+                    <span class="data-value" id="data-nombre"></span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Puesto:</span>
+                    <span class="data-value" id="data-titulo"></span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Teléfono:</span>
+                    <span class="data-value" id="data-telefono"></span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Email:</span>
+                    <span class="data-value" id="data-email"></span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Empresa:</span>
+                    <span class="data-value" id="data-empresa"></span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Sitio Web:</span>
+                    <span class="data-value" id="data-sitio-web"></span>
+                </div>
+                <div class="data-item">
+                    <span class="data-label">Dirección:</span>
+                    <span class="data-value" id="data-direccion"></span>
+                </div>
+                <div class="data-item" id="data-bio-container" style="display: none;">
+                    <span class="data-label">Biografía:</span>
+                    <span class="data-value" id="data-bio"></span>
+                </div>
+                <!-- Las redes sociales se agregarán dinámicamente -->
+            </div>
+        </div>
+        
+        <div class="preview-section">
+            <div class="preview-card">
+                <div class="preview-title" id="card-titulo">Tu Nombre</div>
+                <div class="preview-description" id="card-profesion">Tu Puesto / Profesión</div>
+                
+                <div id="qrcode">
+                    <div style="padding: 30px; color: var(--gray); text-align: center;">
+                        <i class="fas fa-qrcode" style="font-size: 100px; margin-bottom: 15px; opacity: 0.3;"></i>
+                        <p>Completa tus datos y genera el QR profesional</p>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button id="descargar" class="btn btn-success" disabled>
+                        <i class="fas fa-download"></i> Descargar QR
+                    </button>
+                    <button id="compartir" class="btn btn-outline" disabled>
+                        <i class="fas fa-share-alt"></i> Compartir
+                    </button>
+                </div>
+
+                <div style="margin-top: 25px; padding: 20px; background: #f0f9ff; border-radius: 12px; border-left: 4px solid var(--primary);">
+                    <h4 style="color: #0369a1; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-lightbulb"></i> Características Profesionales
+                    </h4>
+                    <ul style="font-size: 0.85rem; color: #6b7280; padding-left: 20px;">
+                        <li style="margin-bottom: 8px;">QR con seguimiento de analytics</li>
+                        <li style="margin-bottom: 8px;">Compatible con vCard 3.0</li>
+                        <li style="margin-bottom: 8px;">Personalización avanzada</li>
+                        <li style="margin-bottom: 8px;">Gestión multi-usuario</li>
+                        <li>Exportación de datos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para gestión de usuarios -->
+<div class="modal" id="user-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title">Gestión de Usuarios</div>
+            <div class="modal-subtitle">Administra múltiples perfiles de usuario</div>
+        </div>
+        
+        <div class="modal-body">
+            <div class="tabs">
+                <div class="tab active" data-tab="users">Usuarios</div>
+                <div class="tab" data-tab="new">Nuevo Usuario</div>
+                <div class="tab" data-tab="import">Importar/Exportar</div>
+            </div>
+            
+            <div class="tab-content active" id="users-tab">
+                <div class="user-list" id="user-list">
+                    <!-- Los usuarios se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+            
+            <div class="tab-content" id="new-tab">
+                <div class="form-group">
+                    <label for="new-user-name">Nombre del Usuario</label>
+                    <input type="text" id="new-user-name" placeholder="Ej: Juan Pérez Rodríguez">
+                </div>
+                <div class="form-group">
+                    <label for="new-user-email">Email</label>
+                    <input type="email" id="new-user-email" placeholder="usuario@empresa.com">
+                </div>
+                <div class="form-group">
+                    <label for="new-user-role">Rol</label>
+                    <select id="new-user-role">
+                        <option value="user">Usuario</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="import-tab">
+                <div class="form-group">
+                    <label>Exportar Datos</label>
+                    <button class="btn btn-outline" id="export-all-data" style="width: 100%;">
+                        <i class="fas fa-file-export"></i> Exportar Todos los Perfiles
+                    </button>
+                </div>
+                <div class="form-group">
+                    <label>Importar Datos</label>
+                    <div class="file-upload">
+                        <div class="file-upload-btn">
+                            <i class="fas fa-file-import"></i>
+                            <div>Seleccionar archivo JSON</div>
+                        </div>
+                        <input type="file" id="import-data-file" accept=".json">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="btn btn-secondary" id="close-modal">Cancelar</button>
+            <button class="btn btn-primary" id="save-user">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<div class="notification" id="notification">
+    <i class="fas fa-check-circle"></i>
+    <span id="notification-text">QR generado exitosamente</span>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<script>
+// Sistema de gestión de usuarios avanzado
+class AdvancedUserManager {
+    constructor() {
+        this.users = JSON.parse(localStorage.getItem('qr-pro-advanced-users')) || [];
+        this.currentUser = null;
+        this.analytics = JSON.parse(localStorage.getItem('qr-pro-analytics')) || {};
+        
+        // Si no hay usuarios, crear uno por defecto
+        if (this.users.length === 0) {
+            this.createDefaultUser();
+        }
+        
+        // Cargar el último usuario activo o el primero
+        const lastUserId = localStorage.getItem('qr-pro-last-user');
+        if (lastUserId) {
+            this.currentUser = this.users.find(user => user.id === lastUserId);
+        }
+        
+        if (!this.currentUser && this.users.length > 0) {
+            this.currentUser = this.users[0];
+        }
+    }
+    
+    createDefaultUser() {
+        const defaultUser = {
+            id: this.generateId(),
+            name: "Usuario Demo",
+            email: "demo@ejemplo.com",
+            role: "admin",
+            avatar: "U",
+            data: {
+                nombre: "Juan Pérez Rodríguez",
+                titulo: "Director de Marketing Digital",
+                telefono: "+1 234 567 8900",
+                email: "juan.perez@empresa.com",
+                empresa: "Mi Empresa S.A.",
+                sitioWeb: "https://www.miempresa.com",
+                direccion: "Av. Principal 123, Ciudad",
+                bio: "Profesional con más de 10 años de experiencia en marketing digital.",
+                redesSociales: {
+                    facebook: "https://www.facebook.com/miempresa",
+                    instagram: "https://www.instagram.com/miempresa",
+                    twitter: "https://www.twitter.com/miempresa",
+                    linkedin: "https://www.linkedin.com/in/miempresa",
+                    youtube: "https://www.youtube.com/miempresa",
+                    whatsapp: "https://wa.me/1234567890",
+                    tiktok: "https://www.tiktok.com/@miempresa"
+                },
+                personalizacionQR: {
+                    color: "#000000",
+                    bgColor: "#FFFFFF",
+                    size: 280,
+                    pattern: "square",
+                    logo: null
+                },
+                opcionesAvanzadas: {
+                    tipoQR: "vcard",
+                    dinamico: true,
+                    seguimiento: true,
+                    protegido: false,
+                    password: "",
+                    expiracion: "",
+                    redireccion: ""
+                }
+            }
+        };
+        
+        this.users.push(defaultUser);
+        this.currentUser = defaultUser;
+        this.saveUsers();
+    }
+    
+    generateId() {
+        return Date.now().toString(36) + Math.random().toString(36).substr(2);
+    }
+    
+    saveUsers() {
+        localStorage.setItem('qr-pro-advanced-users', JSON.stringify(this.users));
+        if (this.currentUser) {
+            localStorage.setItem('qr-pro-last-user', this.currentUser.id);
+        }
+    }
+    
+    addUser(userData) {
+        const newUser = {
+            id: this.generateId(),
+            name: userData.name,
+            email: userData.email,
+            role: userData.role || "user",
+            avatar: userData.name.charAt(0).toUpperCase(),
+            data: {
+                nombre: "",
+                titulo: "",
+                telefono: "",
+                email: userData.email,
+                empresa: "",
+                sitioWeb: "",
+                direccion: "",
+                bio: "",
+                redesSociales: {
+                    facebook: "",
+                    instagram: "",
+                    twitter: "",
+                    linkedin: "",
+                    youtube: "",
+                    whatsapp: "",
+                    tiktok: ""
+                },
+                personalizacionQR: {
+                    color: "#000000",
+                    bgColor: "#FFFFFF",
+                    size: 280,
+                    pattern: "square",
+                    logo: null
+                },
+                opcionesAvanzadas: {
+                    tipoQR: "vcard",
+                    dinamico: true,
+                    seguimiento: true,
+                    protegido: false,
+                    password: "",
+                    expiracion: "",
+                    redireccion: ""
+                }
+            }
+        };
+        
+        this.users.push(newUser);
+        this.saveUsers();
+        return newUser;
+    }
+    
+    switchUser(userId) {
+        const user = this.users.find(u => u.id === userId);
+        if (user) {
+            this.currentUser = user;
+            this.saveUsers();
+            return true;
+        }
+        return false;
+    }
+    
+    deleteUser(userId) {
+        if (this.users.length <= 1) {
+            return false; // No permitir eliminar el último usuario
+        }
+        
+        const userIndex = this.users.findIndex(u => u.id === userId);
+        if (userIndex !== -1) {
+            this.users.splice(userIndex, 1);
+            
+            // Si eliminamos el usuario actual, cambiar al primero
+            if (this.currentUser && this.currentUser.id === userId) {
+                this.currentUser = this.users[0];
+            }
+            
+            this.saveUsers();
+            return true;
+        }
+        return false;
+    }
+    
+    updateUserData(userId, data) {
+        const user = this.users.find(u => u.id === userId);
+        if (user) {
+            user.data = { ...user.data, ...data };
+            this.saveUsers();
+            return true;
+        }
+        return false;
+    }
+    
+    exportUsers() {
+        return JSON.stringify(this.users);
+    }
+    
+    importUsers(jsonData) {
+        try {
+            const importedUsers = JSON.parse(jsonData);
+            if (Array.isArray(importedUsers)) {
+                this.users = importedUsers;
+                this.currentUser = this.users[0];
+                this.saveUsers();
+                return true;
+            }
+        } catch (e) {
+            console.error("Error al importar usuarios:", e);
+        }
+        return false;
+    }
+    
+    recordScan(qrId) {
+        if (!this.analytics[qrId]) {
+            this.analytics[qrId] = {
+                totalScans: 0,
+                uniqueScans: 0,
+                lastScan: null,
+                scanDates: []
+            };
+        }
+        
+        this.analytics[qrId].totalScans++;
+        this.analytics[qrId].lastScan = new Date().toISOString();
+        this.analytics[qrId].scanDates.push(new Date().toISOString());
+        
+        // Para simular escaneos únicos, usaríamos una lógica más compleja en una app real
+        this.analytics[qrId].uniqueScans = Math.floor(this.analytics[qrId].totalScans * 0.8);
+        
+        localStorage.setItem('qr-pro-analytics', JSON.stringify(this.analytics));
+    }
+    
+    getAnalytics(qrId) {
+        return this.analytics[qrId] || {
+            totalScans: 0,
+            uniqueScans: 0,
+            lastScan: null,
+            scanDates: []
+        };
+    }
+}
+
+// Inicializar la aplicación
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar gestor de usuarios
+    const userManager = new AdvancedUserManager();
+    
+    // Elementos del DOM
+    const userMenuBtn = document.getElementById('user-menu-btn');
+    const userDropdown = document.getElementById('user-dropdown');
+    const userModal = document.getElementById('user-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const saveUserBtn = document.getElementById('save-user');
+    const notification = document.getElementById('notification');
+    const notificationText = document.getElementById('notification-text');
+    const generarBtn = document.getElementById('generar');
+    const guardarBtn = document.getElementById('guardar');
+    const descargarBtn = document.getElementById('descargar');
+    const compartirBtn = document.getElementById('compartir');
+    const resetAllBtn = document.getElementById('reset-all');
+    const exportSettingsBtn = document.getElementById('export-settings');
+    const manageUsersBtn = document.getElementById('manage-users');
+    const newUserBtn = document.getElementById('new-user');
+    const saveProfileBtn = document.getElementById('save-profile');
+    const exportDataBtn = document.getElementById('export-data');
+    const importDataBtn = document.getElementById('import-data');
+    const exportAllDataBtn = document.getElementById('export-all-data');
+    const importDataFile = document.getElementById('import-data-file');
+    const userList = document.getElementById('user-list');
+    const formTabs = document.querySelectorAll('.form-tab');
+    const tabContents = document.querySelectorAll('.form-tab-content');
+    const modalTabs = document.querySelectorAll('.tab');
+    const modalTabContents = document.querySelectorAll('.tab-content');
+    const advancedToggle = document.getElementById('advanced-toggle');
+    const advancedContent = document.getElementById('advanced-content');
+    const advancedArrow = document.getElementById('advanced-arrow');
+    const qrSizeSlider = document.getElementById('qr-size');
+    const sizeValue = document.getElementById('size-value');
+    const patternOptions = document.querySelectorAll('.pattern-option');
+    const qrLogo = document.getElementById('qr-logo');
+    const fileName = document.getElementById('file-name');
+    const dynamicQrCheckbox = document.getElementById('dynamic-qr');
+    const trackingCheckbox = document.getElementById('tracking');
+    const passwordProtectCheckbox = document.getElementById('password-protect');
+    const passwordField = document.getElementById('password-field');
+    const dataPreview = document.getElementById('data-preview');
+    
+    // Variables para el QR
+    let currentQRCode = null;
+    let qrDataUrl = null;
+    
+    // Inicializar interfaz
+    initUI();
+    
+    // Event Listeners
+    userMenuBtn.addEventListener('click', toggleUserDropdown);
+    manageUsersBtn.addEventListener('click', openUserModal);
+    newUserBtn.addEventListener('click', openNewUserTab);
+    saveProfileBtn.addEventListener('click', saveCurrentProfile);
+    exportDataBtn.addEventListener('click', exportCurrentUserData);
+    importDataBtn.addEventListener('click', triggerImportData);
+    closeModalBtn.addEventListener('click', closeUserModal);
+    saveUserBtn.addEventListener('click', saveUserAction);
+    exportAllDataBtn.addEventListener('click', exportAllUsersData);
+    importDataFile.addEventListener('change', importUsersData);
+    generarBtn.addEventListener('click', generateQRCode);
+    guardarBtn.addEventListener('click', saveProfile);
+    descargarBtn.addEventListener('click', downloadQRCode);
+    compartirBtn.addEventListener('click', shareQRCode);
+    resetAllBtn.addEventListener('click', resetAllSettings);
+    exportSettingsBtn.addEventListener('click', exportSettings);
+    
+    // Event listeners para pestañas
+    formTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const tabId = tab.getAttribute('data-tab');
+            switchTab(tabId);
+        });
+    });
+    
+    // Event listeners para pestañas del modal
+    modalTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const tabId = tab.getAttribute('data-tab');
+            switchModalTab(tabId);
+        });
+    });
+    
+    // Event listeners para opciones avanzadas
+    advancedToggle.addEventListener('click', toggleAdvancedOptions);
+    qrSizeSlider.addEventListener('input', updateSizeValue);
+    patternOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            patternOptions.forEach(opt => opt.classList.remove('active'));
+            option.classList.add('active');
+        });
+    });
+    qrLogo.addEventListener('change', handleLogoUpload);
+    passwordProtectCheckbox.addEventListener('change', togglePasswordField);
+    
+    // Cerrar dropdown al hacer clic fuera
+    document.addEventListener('click', function(event) {
+        if (!userMenuBtn.contains(event.target) && !userDropdown.contains(event.target)) {
+            userDropdown.classList.remove('show');
+        }
+    });
+    
+    // Funciones de inicialización
+    function initUI() {
+        // Cargar datos del usuario actual
+        loadCurrentUserData();
+        
+        // Actualizar información del usuario en la interfaz
+        updateUserInfo();
+        
+        // Cargar lista de usuarios en el modal
+        loadUserList();
+        
+        // Inicializar analytics
+        updateAnalytics();
+    }
+    
+    function loadCurrentUserData() {
+        if (!userManager.currentUser) return;
+        
+        const user = userManager.currentUser;
+        const data = user.data;
+        
+        // Información básica
+        document.getElementById('nombre').value = data.nombre || '';
+        document.getElementById('titulo').value = data.titulo || '';
+        document.getElementById('telefono').value = data.telefono || '';
+        document.getElementById('email').value = data.email || '';
+        document.getElementById('empresa').value = data.empresa || '';
+        document.getElementById('sitio-web').value = data.sitioWeb || '';
+        document.getElementById('direccion').value = data.direccion || '';
+        document.getElementById('bio').value = data.bio || '';
+        
+        // Redes sociales
+        document.getElementById('facebook').value = data.redesSociales?.facebook || '';
+        document.getElementById('instagram').value = data.redesSociales?.instagram || '';
+        document.getElementById('twitter').value = data.redesSociales?.twitter || '';
+        document.getElementById('linkedin').value = data.redesSociales?.linkedin || '';
+        document.getElementById('youtube').value = data.redesSociales?.youtube || '';
+        document.getElementById('whatsapp').value = data.redesSociales?.whatsapp || '';
+        document.getElementById('tiktok').value = data.redesSociales?.tiktok || '';
+        
+        // Personalización QR
+        document.getElementById('qr-color').value = data.personalizacionQR?.color || '#000000';
+        document.getElementById('qr-bg-color').value = data.personalizacionQR?.bgColor || '#FFFFFF';
+        document.getElementById('qr-size').value = data.personalizacionQR?.size || 280;
+        updateSizeValue();
+        
+        // Patrón QR
+        const pattern = data.personalizacionQR?.pattern || 'square';
+        patternOptions.forEach(option => {
+            if (option.getAttribute('data-pattern') === pattern) {
+                option.classList.add('active');
+            } else {
+                option.classList.remove('active');
+            }
+        });
+        
+        // Opciones avanzadas
+        document.getElementById('qr-type').value = data.opcionesAvanzadas?.tipoQR || 'vcard';
+        document.getElementById('dynamic-qr').checked = data.opcionesAvanzadas?.dinamico || true;
+        document.getElementById('tracking').checked = data.opcionesAvanzadas?.seguimiento || true;
+        document.getElementById('password-protect').checked = data.opcionesAvanzadas?.protegido || false;
+        document.getElementById('qr-password').value = data.opcionesAvanzadas?.password || '';
+        document.getElementById('expiration').value = data.opcionesAvanzadas?.expiracion || '';
+        document.getElementById('custom-redirect').value = data.opcionesAvanzadas?.redireccion || '';
+        
+        togglePasswordField();
+        
+        // Actualizar vista previa de tarjeta
+        updateCardPreview();
+    }
+    
+    function updateUserInfo() {
+        if (!userManager.currentUser) return;
+        
+        const user = userManager.currentUser;
+        document.getElementById('user-name').textContent = user.name;
+        document.getElementById('user-avatar').textContent = user.avatar;
+    }
+    
+    function updateCardPreview() {
+        if (!userManager.currentUser) return;
+        
+        const data = userManager.currentUser.data;
+        document.getElementById('card-titulo').textContent = data.nombre || 'Tu Nombre';
+        document.getElementById('card-profesion').textContent = data.titulo || 'Tu Puesto / Profesión';
+    }
+    
+    function updateAnalytics() {
+        // En una aplicación real, estos datos vendrían del backend
+        // Por ahora, simulamos algunos datos
+        document.getElementById('scan-count').textContent = Math.floor(Math.random() * 100);
+        document.getElementById('unique-scans').textContent = Math.floor(Math.random() * 80);
+        document.getElementById('last-scan').textContent = new Date().toLocaleDateString();
+        document.getElementById('success-rate').textContent = '100%';
+    }
+    
+    // Funciones de UI
+    function toggleUserDropdown() {
+        userDropdown.classList.toggle('show');
+    }
+    
+    function openUserModal() {
+        userModal.classList.add('show');
+        loadUserList();
+    }
+    
+    function openNewUserTab() {
+        openUserModal();
+        switchModalTab('new');
+    }
+    
+    function closeUserModal() {
+        userModal.classList.remove('show');
+    }
+    
+    function switchTab(tabId) {
+        // Desactivar todas las pestañas
+        formTabs.forEach(tab => tab.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+        
+        // Activar la pestaña seleccionada
+        document.querySelector(`.form-tab[data-tab="${tabId}"]`).classList.add('active');
+        document.getElementById(`${tabId}-tab`).classList.add('active');
+    }
+    
+    function switchModalTab(tabId) {
+        // Desactivar todas las pestañas
+        modalTabs.forEach(tab => tab.classList.remove('active'));
+        modalTabContents.forEach(content => content.classList.remove('active'));
+        
+        // Activar la pestaña seleccionada
+        document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
+        document.getElementById(`${tabId}-tab`).classList.add('active');
+    }
+    
+    function toggleAdvancedOptions() {
+        advancedContent.classList.toggle('show');
+        advancedArrow.classList.toggle('fa-chevron-down');
+        advancedArrow.classList.toggle('fa-chevron-up');
+    }
+    
+    function updateSizeValue() {
+        sizeValue.textContent = `${qrSizeSlider.value}px`;
+    }
+    
+    function handleLogoUpload() {
+        if (qrLogo.files.length > 0) {
+            fileName.textContent = qrLogo.files[0].name;
+        } else {
+            fileName.textContent = 'No se ha seleccionado archivo';
+        }
+    }
+    
+    function togglePasswordField() {
+        if (passwordProtectCheckbox.checked) {
+            passwordField.style.display = 'block';
+        } else {
+            passwordField.style.display = 'none';
+        }
+    }
+    
+    // Funciones de gestión de usuarios
+    function loadUserList() {
+        userList.innerHTML = '';
+        
+        userManager.users.forEach(user => {
+            const userItem = document.createElement('div');
+            userItem.className = `user-item ${user.id === userManager.currentUser.id ? 'active' : ''}`;
+            userItem.innerHTML = `
+                <div class="user-item-info">
+                    <div class="user-item-avatar">${user.avatar}</div>
+                    <div>
+                        <div class="user-item-name">${user.name}</div>
+                        <div class="user-item-email">${user.email}</div>
+                    </div>
+                </div>
+                <div class="user-item-actions">
+                    <button class="user-item-action switch-user" data-user-id="${user.id}">
+                        <i class="fas fa-exchange-alt"></i>
+                    </button>
+                    <button class="user-item-action delete-user" data-user-id="${user.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            
+            userList.appendChild(userItem);
+        });
+        
+        // Agregar event listeners a los botones de usuario
+        document.querySelectorAll('.switch-user').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const userId = this.getAttribute('data-user-id');
+                switchUser(userId);
+            });
+        });
+        
+        document.querySelectorAll('.delete-user').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const userId = this.getAttribute('data-user-id');
+                deleteUser(userId);
+            });
+        });
+    }
+    
+    function switchUser(userId) {
+        if (userManager.switchUser(userId)) {
+            loadCurrentUserData();
+            updateUserInfo();
+            updateCardPreview();
+            closeUserModal();
+            showNotification('Usuario cambiado exitosamente');
+        }
+    }
+    
+    function deleteUser(userId) {
+        if (userManager.deleteUser(userId)) {
+            loadUserList();
+            showNotification('Usuario eliminado exitosamente');
+        } else {
+            showNotification('No se puede eliminar el último usuario', 'error');
+        }
+    }
+    
+    function saveUserAction() {
+        const activeModalTab = document.querySelector('.tab.active').getAttribute('data-tab');
+        
+        if (activeModalTab === 'new') {
+            const name = document.getElementById('new-user-name').value;
+            const email = document.getElementById('new-user-email').value;
+            const role = document.getElementById('new-user-role').value;
+            
+            if (!name || !email) {
+                showNotification('Por favor, completa todos los campos', 'error');
+                return;
+            }
+            
+            userManager.addUser({ name, email, role });
+            loadUserList();
+            document.getElementById('new-user-name').value = '';
+            document.getElementById('new-user-email').value = '';
+            showNotification('Usuario creado exitosamente');
+            switchModalTab('users');
+        }
+    }
+    
+    function saveCurrentProfile() {
+        saveProfile();
+        showNotification('Perfil guardado exitosamente');
+    }
+    
+    function exportCurrentUserData() {
+        if (!userManager.currentUser) return;
+        
+        const userData = JSON.stringify(userManager.currentUser, null, 2);
+        downloadFile(userData, `qr-pro-profile-${userManager.currentUser.name}.json`, 'application/json');
+        showNotification('Datos exportados exitosamente');
+    }
+    
+    function exportAllUsersData() {
+        const allUsersData = userManager.exportUsers();
+        downloadFile(allUsersData, 'qr-pro-all-users.json', 'application/json');
+        showNotification('Todos los usuarios exportados exitosamente');
+    }
+    
+    function triggerImportData() {
+        importDataFile.click();
+    }
+    
+    function importUsersData() {
+        if (importDataFile.files.length === 0) return;
+        
+        const file = importDataFile.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            if (userManager.importUsers(e.target.result)) {
+                loadCurrentUserData();
+                updateUserInfo();
+                updateCardPreview();
+                loadUserList();
+                showNotification('Datos importados exitosamente');
+            } else {
+                showNotification('Error al importar datos', 'error');
+            }
+        };
+        
+        reader.readAsText(file);
+        importDataFile.value = '';
+    }
+    
+    // Funciones de QR
+    function generateQRCode() {
+        if (!userManager.currentUser) return;
+        
+        const user = userManager.currentUser;
+        const data = user.data;
+        
+        // Recopilar datos del formulario
+        const formData = {
+            nombre: document.getElementById('nombre').value,
+            titulo: document.getElementById('titulo').value,
+            telefono: document.getElementById('telefono').value,
+            email: document.getElementById('email').value,
+            empresa: document.getElementById('empresa').value,
+            sitioWeb: document.getElementById('sitio-web').value,
+            direccion: document.getElementById('direccion').value,
+            bio: document.getElementById('bio').value,
+            redesSociales: {
+                facebook: document.getElementById('facebook').value,
+                instagram: document.getElementById('instagram').value,
+                twitter: document.getElementById('twitter').value,
+                linkedin: document.getElementById('linkedin').value,
+                youtube: document.getElementById('youtube').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                tiktok: document.getElementById('tiktok').value
+            }
+        };
+        
+        // Actualizar datos del usuario
+        userManager.updateUserData(user.id, formData);
+        
+        // Generar contenido para el QR
+        const qrContent = generateQRContent(formData);
+        
+        // Opciones de personalización
+        const color = document.getElementById('qr-color').value;
+        const bgColor = document.getElementById('qr-bg-color').value;
+        const size = parseInt(document.getElementById('qr-size').value);
+        
+        // Generar QR
+        const qrContainer = document.getElementById('qrcode');
+        qrContainer.innerHTML = '';
+        
+        QRCode.toCanvas(qrContent, {
+            width: size,
+            height: size,
+            color: {
+                dark: color,
+                light: bgColor
+            }
+        }, function(err, canvas) {
+            if (err) {
+                console.error(err);
+                showNotification('Error al generar QR', 'error');
+                return;
+            }
+            
+            qrContainer.appendChild(canvas);
+            currentQRCode = canvas;
+            qrDataUrl = canvas.toDataURL('image/png');
+            
+            // Habilitar botones de descarga y compartir
+            descargarBtn.disabled = false;
+            compartirBtn.disabled = false;
+            
+            // Actualizar vista previa de datos
+            updateDataPreview(formData);
+            
+            // Mostrar notificación
+            showNotification('QR generado exitosamente');
+            
+            // Registrar escaneo simulado (para demo)
+            userManager.recordScan(user.id);
+            updateAnalytics();
+        });
+    }
+    
+    function generateQRContent(data) {
+        // Generar contenido vCard
+        let vcard = 'BEGIN:VCARD\n';
+        vcard += 'VERSION:3.0\n';
+        vcard += `FN:${data.nombre}\n`;
+        vcard += `TITLE:${data.titulo}\n`;
+        vcard += `TEL:${data.telefono}\n`;
+        vcard += `EMAIL:${data.email}\n`;
+        vcard += `ORG:${data.empresa}\n`;
+        vcard += `URL:${data.sitioWeb}\n`;
+        vcard += `ADR:;;${data.direccion}\n`;
+        
+        // Agregar redes sociales
+        if (data.redesSociales.facebook) {
+            vcard += `X-SOCIALPROFILE;TYPE=facebook:${data.redesSociales.facebook}\n`;
+        }
+        if (data.redesSociales.instagram) {
+            vcard += `X-SOCIALPROFILE;TYPE=instagram:${data.redesSociales.instagram}\n`;
+        }
+        if (data.redesSociales.twitter) {
+            vcard += `X-SOCIALPROFILE;TYPE=twitter:${data.redesSociales.twitter}\n`;
+        }
+        if (data.redesSociales.linkedin) {
+            vcard += `X-SOCIALPROFILE;TYPE=linkedin:${data.redesSociales.linkedin}\n`;
+        }
+        
+        vcard += 'END:VCARD';
+        
+        return vcard;
+    }
+    
+    function updateDataPreview(data) {
+        // Mostrar contenedor de vista previa
+        dataPreview.style.display = 'block';
+        
+        // Actualizar datos básicos
+        document.getElementById('data-nombre').textContent = data.nombre || 'No especificado';
+        document.getElementById('data-titulo').textContent = data.titulo || 'No especificado';
+        document.getElementById('data-telefono').textContent = data.telefono || 'No especificado';
+        document.getElementById('data-email').textContent = data.email || 'No especificado';
+        document.getElementById('data-empresa').textContent = data.empresa || 'No especificado';
+        document.getElementById('data-sitio-web').textContent = data.sitioWeb || 'No especificado';
+        document.getElementById('data-direccion').textContent = data.direccion || 'No especificado';
+        
+        // Mostrar/ocultar biografía
+        if (data.bio) {
+            document.getElementById('data-bio-container').style.display = 'flex';
+            document.getElementById('data-bio').textContent = data.bio;
+        } else {
+            document.getElementById('data-bio-container').style.display = 'none';
+        }
+        
+        // Limpiar redes sociales anteriores
+        const existingSocialItems = dataPreview.querySelectorAll('.social-data-item');
+        existingSocialItems.forEach(item => item.remove());
+        
+        // Agregar redes sociales
+        for (const [platform, url] of Object.entries(data.redesSociales)) {
+            if (url) {
+                const socialItem = document.createElement('div');
+                socialItem.className = 'data-item social-data-item';
+                socialItem.innerHTML = `
+                    <span class="data-label">${platform.charAt(0).toUpperCase() + platform.slice(1)}:</span>
+                    <span class="data-value">${url}</span>
+                `;
+                dataPreview.appendChild(socialItem);
+            }
+        }
+    }
+    
+    function saveProfile() {
+        if (!userManager.currentUser) return;
+        
+        const user = userManager.currentUser;
+        
+        // Recopilar todos los datos del formulario
+        const formData = {
+            nombre: document.getElementById('nombre').value,
+            titulo: document.getElementById('titulo').value,
+            telefono: document.getElementById('telefono').value,
+            email: document.getElementById('email').value,
+            empresa: document.getElementById('empresa').value,
+            sitioWeb: document.getElementById('sitio-web').value,
+            direccion: document.getElementById('direccion').value,
+            bio: document.getElementById('bio').value,
+            redesSociales: {
+                facebook: document.getElementById('facebook').value,
+                instagram: document.getElementById('instagram').value,
+                twitter: document.getElementById('twitter').value,
+                linkedin: document.getElementById('linkedin').value,
+                youtube: document.getElementById('youtube').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                tiktok: document.getElementById('tiktok').value
+            },
+            personalizacionQR: {
+                color: document.getElementById('qr-color').value,
+                bgColor: document.getElementById('qr-bg-color').value,
+                size: parseInt(document.getElementById('qr-size').value),
+                pattern: document.querySelector('.pattern-option.active').getAttribute('data-pattern'),
+                logo: user.data.personalizacionQR?.logo || null
+            },
+            opcionesAvanzadas: {
+                tipoQR: document.getElementById('qr-type').value,
+                dinamico: document.getElementById('dynamic-qr').checked,
+                seguimiento: document.getElementById('tracking').checked,
+                protegido: document.getElementById('password-protect').checked,
+                password: document.getElementById('qr-password').value,
+                expiracion: document.getElementById('expiration').value,
+                redireccion: document.getElementById('custom-redirect').value
+            }
+        };
+        
+        // Actualizar datos del usuario
+        userManager.updateUserData(user.id, formData);
+        
+        // Actualizar vista previa de tarjeta
+        updateCardPreview();
+        
+        showNotification('Perfil guardado exitosamente');
+    }
+    
+    function downloadQRCode() {
+        if (!qrDataUrl) return;
+        
+        const link = document.createElement('a');
+        link.download = `qr-${userManager.currentUser?.data.nombre || 'contacto'}.png`;
+        link.href = qrDataUrl;
+        link.click();
+        
+        showNotification('QR descargado exitosamente');
+    }
+    
+    function shareQRCode() {
+        if (!qrDataUrl) return;
+        
+        if (navigator.share) {
+            // Usar Web Share API si está disponible
+            navigator.share({
+                title: `QR de ${userManager.currentUser?.data.nombre || 'contacto'}`,
+                text: 'Escanea este código QR para obtener mi información de contacto',
+                files: [dataURLtoBlob(qrDataUrl)]
+            }).then(() => {
+                showNotification('QR compartido exitosamente');
+            }).catch(err => {
+                console.error('Error al compartir:', err);
+                showNotification('Error al compartir QR', 'error');
+            });
+        } else {
+            // Alternativa: descargar el QR
+            downloadQRCode();
+        }
+    }
+    
+    function dataURLtoBlob(dataURL) {
+        const parts = dataURL.split(';base64,');
+        const contentType = parts[0].split(':')[1];
+        const raw = window.atob(parts[1]);
+        const uInt8Array = new Uint8Array(raw.length);
+        
+        for (let i = 0; i < raw.length; ++i) {
+            uInt8Array[i] = raw.charCodeAt(i);
+        }
+        
+        return new Blob([uInt8Array], { type: contentType });
+    }
+    
+    function resetAllSettings() {
+        if (confirm('¿Estás seguro de que quieres restablecer todos los ajustes? Esta acción no se puede deshacer.')) {
+            // Restablecer formulario
+            document.getElementById('nombre').value = '';
+            document.getElementById('titulo').value = '';
+            document.getElementById('telefono').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('empresa').value = '';
+            document.getElementById('sitio-web').value = '';
+            document.getElementById('direccion').value = '';
+            document.getElementById('bio').value = '';
+            
+            // Restablecer redes sociales
+            document.getElementById('facebook').value = '';
+            document.getElementById('instagram').value = '';
+            document.getElementById('twitter').value = '';
+            document.getElementById('linkedin').value = '';
+            document.getElementById('youtube').value = '';
+            document.getElementById('whatsapp').value = '';
+            document.getElementById('tiktok').value = '';
+            
+            // Restablecer personalización
+            document.getElementById('qr-color').value = '#000000';
+            document.getElementById('qr-bg-color').value = '#FFFFFF';
+            document.getElementById('qr-size').value = 280;
+            updateSizeValue();
+            
+            patternOptions.forEach(option => {
+                if (option.getAttribute('data-pattern') === 'square') {
+                    option.classList.add('active');
+                } else {
+                    option.classList.remove('active');
+                }
+            });
+            
+            // Restablecer opciones avanzadas
+            document.getElementById('qr-type').value = 'vcard';
+            document.getElementById('dynamic-qr').checked = true;
+            document.getElementById('tracking').checked = true;
+            document.getElementById('password-protect').checked = false;
+            document.getElementById('qr-password').value = '';
+            document.getElementById('expiration').value = '';
+            document.getElementById('custom-redirect').value = '';
+            
+            togglePasswordField();
+            
+            // Limpiar QR
+            document.getElementById('qrcode').innerHTML = `
+                <div style="padding: 30px; color: var(--gray); text-align: center;">
+                    <i class="fas fa-qrcode" style="font-size: 100px; margin-bottom: 15px; opacity: 0.3;"></i>
+                    <p>Completa tus datos y genera el QR profesional</p>
+                </div>
+            `;
+            
+            // Deshabilitar botones de descarga y compartir
+            descargarBtn.disabled = true;
+            compartirBtn.disabled = true;
+            
+            // Ocultar vista previa de datos
+            dataPreview.style.display = 'none';
+            
+            showNotification('Todos los ajustes han sido restablecidos');
+        }
+    }
+    
+    function exportSettings() {
+        if (!userManager.currentUser) return;
+        
+        const settings = {
+            usuario: userManager.currentUser.name,
+            fechaExportacion: new Date().toISOString(),
+            datos: userManager.currentUser.data
+        };
+        
+        const settingsJSON = JSON.stringify(settings, null, 2);
+        downloadFile(settingsJSON, `qr-pro-settings-${userManager.currentUser.name}.json`, 'application/json');
+        
+        showNotification('Configuración exportada exitosamente');
+    }
+    
+    // Utilidades
+    function showNotification(message, type = 'success') {
+        notificationText.textContent = message;
+        
+        // Cambiar color según el tipo
+        if (type === 'error') {
+            notification.style.background = 'var(--danger)';
+        } else {
+            notification.style.background = 'var(--primary)';
+        }
+        
+        notification.classList.add('show');
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+    
+    function downloadFile(content, fileName, contentType) {
+        const blob = new Blob([content], { type: contentType });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.click();
+        URL.revokeObjectURL(url);
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Web Creativa</title>
+    <style>
+        :root {
+            --primary-color: #4A6CF7;
+            --secondary-color: #6B7A8F;
+            --accent-color: #F7B32B;
+            --light-color: #F5F7FA;
+            --dark-color: #2D3748;
+            --success-color: #48BB78;
+            --shadow: 0 10px 20px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 4px;
+            background: var(--accent-color);
+            bottom: -10px;
+            left: 20%;
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            max-width: 600px;
+            margin: 20px auto;
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: inherit;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .card-icon {
+            background: var(--primary-color);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .card p {
+            color: var(--secondary-color);
+            font-size: 0.95rem;
+        }
+
+        .output-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: var(--shadow);
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .output {
+            font-size: 1.4rem;
+            color: var(--dark-color);
+            font-weight: 500;
+        }
+
+        .highlight {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        /* Animación de entrada */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.2s; opacity: 0; }
+        .delay-2 { animation-delay: 0.4s; opacity: 0; }
+        .delay-3 { animation-delay: 0.6s; opacity: 0; }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .button-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .output {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+       
+            
+    <div class="container">
+        <header class="fade-in">
+            <h1>Mi Web Creativa</h1>
+            <p class="subtitle">Explora nuestras herramientas creativas para dar vida a tus ideas</p>
+        </header>
+
+        <div class="button-container">
+            <a href="legalilgealparte1.html" class="card fade-in delay-1">
+                <div class="card-icon">📚</div>
+                <div class="card-content">
+                    <h3>Conocimientos</h3>
+                    <p>Accede a recursos y tutoriales para expandir tus habilidades</p>
+                </div>
+            </a>
+            
+            <a href="presentacion.html" class="card fade-in delay-1">
+                <div class="card-icon">🔲</div>
+                <div class="card-content">
+                    <h3>Genera tu propio QR</h3>
+                    <p>Crea códigos QR personalizados para compartir información</p>
+                </div>
+            </a>
+            
+         
+            
+            <a href="diferentesgeneradeuna.html" class="card fade-in delay-2">
+                <div class="card-icon">🖼️</div>
+                <div class="card-content">
+                    <h3>Poner una foto</h3>
+                    <p>Sube y edita tus imágenes con nuestras herramientas y con esa foto pones sale la misma muchas fotos</p>
+                    <p>
+                        se utiliza para logos de cumpleanos hay con esa hoja se dice especial no tamano A4 lo que digo que podra hacer 
+                        para tus ventas de negocio algo original y diferente para la publicidad 
+                    </p>
+                    <p>
+                        acalaracion todo esto es gratis para todo el mundo
+                    </p>
+                    <p>
+                        es gratis porque no somos obsesivo por el dinero no tenemos enfermedad mental por el dinero 
+                    </p>
+                </div>
+            </a>
+           
+                
+            
+            <a href="marcoparaactoravanzado.html" class="card fade-in delay-3">
+                <div class="card-icon">🎭</div>
+                <div class="card-content">
+                    <h3>Marco para actores</h3>
+                    <p>Herramientas especializadas para profesionales de la actuación</p>
+                </div>
+            </a>
+            
+           
+  <a href="desmostracionejemplos.html" class="card fade-in delay-3">
+                <div class="card-icon">⚡</div>
+                <div class="card-content">
+                    <h3>Desmostracion gratis podra descargar esas fotos son logos profesional</h3>
+                   <P>
+                    Mas directo son para comerciales, empresariales y hasta tambien para el publico en general
+                   </P>
+                </div>
+            </a>
+  <a href="disenopresentaciontodo1.html" class="card fade-in delay-3">
+                <div class="card-icon">⚡</div>
+                <div class="card-content">
+                    <h3>Facil crea y disena algo nuevo</h3>
+                   <P>
+                   Crea y disena algo nuevos mira es facil entender sin explicacion es lo mejor
+                   </P>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="output-container fade-in">
+            <div class="output" id="output">Haz clic en cualquier tarjeta para explorar esa funcionalidad</div>
+        </div>
+  <a href="bievenidas.html" class="card fade-in delay-1">
+                <div class="card-icon"> PRESENTACION BIEVENIDOS</div>
+                <div class="card-content">
+           <h4>
+HAZ CLICK PARA VER NUESTRA PRESENTACIÓN DE BIENVENIDA, DIRIGIDA A TODOS LOS QUE NOS VISITAN, CON NUESTRA CARA CREATIVA Y EL LOGO ASOCIADO.
+           </h4>
+                   
+                </div>
+            </a>
+     
+    </div>
+
+    <script>
+        // Aquí puedes agregar cualquier funcionalidad JavaScript que necesites
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ejemplo: Mostrar mensaje cuando se pasa el ratón sobre una tarjeta
+            const cards = document.querySelectorAll('.card');
+            const output = document.getElementById('output');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    const title = this.querySelector('h3').textContent;
+                    output.innerHTML = `Preparando: <span class="highlight">${title}</span>`;
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    output.textContent = 'Haz clic en cualquier tarjeta para explorar esa funcionalidad';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

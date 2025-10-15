@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalizador de Marcos Avanzado para Actores (900+ Opciones)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #1a2a3a;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            color: var(--light-color);
+            min-height: 100vh;
+            padding: 20px;
+            border-radius: 10px;
+  max-width: 1200px;
+  margin: 90px auto;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: var(--light-color);
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            color: var(--accent-color);
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .preview-section, .controls-section {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .preview-section {
+            flex: 1 1 450px;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .controls-section {
+            flex: 2 1 600px;
+            min-width: 300px;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(231, 76, 60, 0.5);
+            padding-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+        .frame-container {
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 3/4;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-size="10" fill="%23999">Carga tu Imagen Aquí</text></svg>');
+            background-color: #fff;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .frame-container:hover {
+            transform: translateY(-5px);
+        }
+        
+        #actorFrame {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0);
+            border: 15px solid #000;
+            overflow: hidden;
+        }
+        
+        .frame-text {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-weight: 700;
+            color: #000;
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            transition: all 0.3s;
+            z-index: 2;
+        }
+        
+        .control-group {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+        
+        .control-group:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .control-group h3 {
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            border-bottom: 1px solid rgba(52, 152, 219, 0.3);
+            padding-bottom: 5px;
+            font-size: 1.3rem;
+        }
+        
+        .control-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .control-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+            font-weight: bold;
+        }
+        
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: var(--dark-color);
+            border-radius: 5px;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .2s;
+        }
+
+        input[type="range"]:hover {
+            opacity: 1;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            cursor: pointer;
+            border: none;
+        }
+
+        input[type="text"], input[type="color"], select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--dark-color);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input[type="text"]:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--accent-color);
+        }
+
+        input[type="color"] {
+            height: 40px;
+            padding: 0;
+            cursor: pointer;
+        }
+        
+        .btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 25px;
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .btn-download {
+            background: var(--secondary-color);
+            flex-grow: 1;
+        }
+        
+        .btn-download:hover {
+            background: #c0392b;
+        }
+        
+        .btn-reset {
+            background: #7f8c8d;
+            flex-grow: 1;
+        }
+        
+        .btn-reset:hover {
+            background: #636e72;
+        }
+        
+        .btn-save {
+            background: #2ecc71;
+            flex-grow: 1;
+        }
+        
+        .btn-save:hover {
+            background: #27ae60;
+        }
+        
+        .btn-load {
+            background: #9b59b6;
+            flex-grow: 1;
+        }
+        
+        .btn-load:hover {
+            background: #8e44ad;
+        }
+        
+        .style-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+        }
+        
+        .style-option {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+            font-size: 0.8rem;
+            color: var(--dark-color);
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .style-option:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .style-option.active {
+            border-color: var(--secondary-color);
+            transform: scale(1.05);
+            box-shadow: 0 0 10px var(--secondary-color);
+        }
+
+        /* Estilos de ejemplo para las opciones de marco base */
+        .style-option[data-style="1"] { background: linear-gradient(45deg, #f1c40f, #e67e22); }
+        .style-option[data-style="2"] { background: linear-gradient(45deg, #3498db, #9b59b6); }
+        .style-option[data-style="3"] { background: linear-gradient(45deg, #2ecc71, #1abc9c); }
+        .style-option[data-style="4"] { background: linear-gradient(45deg, #e74c3c, #c0392b); }
+        .style-option[data-style="5"] { background: linear-gradient(45deg, #34495e, #2c3e50); }
+        .style-option[data-style="6"] { background: linear-gradient(45deg, #ecf0f1, #bdc3c7); }
+        .style-option[data-style="7"] { background: radial-gradient(#ffeaa7, #fdcb6e); } /* Oro Suave */
+        .style-option[data-style="8"] { background: repeating-linear-gradient(45deg, #00b894, #00b894 10px, #009975 10px, #009975 20px); } /* Rayas Esmeralda */
+        .style-option[data-style="9"] { background: radial-gradient(circle, #a29bfe, #6c5ce7); } /* Violeta Radial */
+        .style-option[data-style="10"] { background: linear-gradient(to right, #ffffff 50%, #000000 50%); } /* Blanco y Negro */
+
+        /* Estilos para el radio button de posición del texto */
+        .radio-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+
+        .radio-group input[type="radio"] {
+            display: none;
+        }
+
+        .radio-group label {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s, border 0.2s;
+            border: 1px solid transparent;
+            font-size: 0.85rem;
+        }
+
+        .radio-group input[type="radio"]:checked + label {
+            background: var(--secondary-color);
+            border-color: var(--light-color);
+        }
+
+        /* Ocultar el rango de filtro de imagen, ya que es simulado en el preview */
+        .filter-range-value {
+            display: none;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Mejoras para dispositivos móviles */
+        @media (max-width: 900px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .control-row {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+        
+        /* Estilos para el mensaje de carga */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            flex-direction: column;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .loading.hidden {
+            display: none;
+        }
+        
+        .spinner {
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 5px solid var(--secondary-color);
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Estilos para el marco interno */
+        .inner-frame {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        /* Estilos para el efecto de brillo en el marco */
+        .frame-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        .cuadro {
+  background-color: #ffffff;
+  border: 3px solid #4CAF50;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.boton {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.boton:hover {
+  background-color: #45a049;
+}
+    </style>
+</head>
+<body>
+    <div class="cuadro">
+    <a href="index.html" class="boton">Volver Atrás</a>
+  </div>
+    <div class="loading hidden" id="loading">
+        <div class="spinner"></div>
+        <p>Generando imagen...</p>
+    </div>
+    
+    <div class="container">
+        <header>
+            <h1>Personalizador de Marcos Avanzado para Actores ⭐</h1>
+            <p class="subtitle">¡Más de 900 combinaciones posibles! Crea un Headshot inolvidable.</p>
+        </header>
+        
+        <div class="main-content">
+            <section class="preview-section">
+                <h2>Vista Previa Interactiva</h2>
+                <div class="frame-container">
+                    <div id="actorFrame">
+                        <div class="frame-text" id="frameText">Nombre del Actor | Agencia</div>
+                        <div class="inner-frame"></div>
+                        <div class="frame-glow"></div>
+                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-camera" style="font-size: 5rem; color: #ccc;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <input type="file" id="imageUploader" accept="image/*" style="display: none;">
+                    <button class="btn" onclick="document.getElementById('imageUploader').click()">
+                        <i class="fas fa-upload"></i> Subir Imagen
+                    </button>
+                    <button class="btn btn-download" id="downloadBtn">
+                        <i class="fas fa-download"></i> Descargar Marco
+                    </button>
+                    <button class="btn btn-save" id="saveBtn">
+                        <i class="fas fa-save"></i> Guardar Config
+                    </button>
+                    <button class="btn btn-load" id="loadBtn">
+                        <i class="fas fa-folder-open"></i> Cargar Config
+                    </button>
+                    <button class="btn btn-reset" id="resetBtn">
+                        <i class="fas fa-redo-alt"></i> Restablecer
+                    </button>
+                </div>
+            </section>
+            
+            <section class="controls-section">
+                <h2>Controles de Personalización 🛠️</h2>
+                
+                <div class="control-group">
+                    <h3>Dimensiones y Proporción (100+ combinaciones)</h3>
+                    <div class="control-row">
+                        <div class="control-item">
+                            <label for="frameWidth">Ancho (px) <span id="widthValue">400px</span></label>
+                            <input type="range" id="frameWidth" min="300" max="800" step="10" value="400">
+                        </div>
+                        <div class="control-item">
+                            <label for="frameHeight">Alto (px) <span id="heightValue">533px</span></label>
+                            <input type="range" id="frameHeight" min="400" max="1066" step="10" value="533">
+                        </div>
+                        <div class="control-item">
+                            <label for="frameRatio">Proporción de Marco</label>
+                            <select id="frameRatio">
+                                <option value="3/4">Headshot (3:4)</option>
+                                <option value="4/3">Paisaje (4:3)</option>
+                                <option value="1/1">Cuadrado (1:1)</option>
+                                <option value="16/9">Cinemático (16:9)</option>
+                                <option value="custom">Personalizado</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Estilos de Marco Base (10 Opciones)</h3>
+                    <div class="style-options" id="frameStyleOptions">
+                        <div class="style-option" data-style="1" title="Clásico Cálido">1</div>
+                        <div class="style-option" data-style="2" title="Gradiante Frío">2</div>
+                        <div class="style-option" data-style="3" title="Naturaleza">3</div>
+                        <div class="style-option" data-style="4" title="Pasión">4</div>
+                        <div class="style-option" data-style="5" title="Minimal Oscuro">5</div>
+                        <div class="style-option" data-style="6" title="Gris Claro">6</div>
+                        <div class="style-option" data-style="7" title="Oro Suave">7</div>
+                        <div class="style-option" data-style="8" title="Rayas Esmeralda">8</div>
+                        <div class="style-option" data-style="9" title="Violeta Radial">9</div>
+                        <div class="style-option" data-style="10" title="Contraste B&N">10</div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Bordes y Efectos (5 x 20 x 4 x 4 = 1600+ combinaciones)</h3>
+                    <div class="control-row">
+                        <div class="control-item">
+                            <label for="frameBorderColor">Color del Borde Externo</label>
+                            <input type="color" id="frameBorderColor" value="#000000">
+                        </div>
+                         <div class="control-item">
+                            <label for="frameBorderThickness">Grosor del Borde <span id="borderValue">15px</span></label>
+                            <input type="range" id="frameBorderThickness" min="0" max="50" value="15">
+                        </div>
+                        <div class="control-item">
+                            <label for="frameCornerRadius">Radio de Esquina <span id="radiusValue">0px</span></label>
+                            <input type="range" id="frameCornerRadius" min="0" max="50" value="0">
+                        </div>
+                        <div class="control-item">
+                            <label for="frameBorderStyle">Estilo de Borde</label>
+                            <select id="frameBorderStyle">
+                                <option value="solid">Sólido</option>
+                                <option value="dashed">Discontinuo</option>
+                                <option value="dotted">Punteado</option>
+                                <option value="double">Doble Línea</option>
+                                <option value="groove">Ranura</option>
+                                <option value="ridge">Cresta</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-row">
+                        <div class="control-item">
+                            <label for="frameShadowIntensity">Intensidad de Sombra <span id="shadowValue">10px</span></label>
+                            <input type="range" id="frameShadowIntensity" min="0" max="30" value="10">
+                        </div>
+                        <div class="control-item">
+                            <label for="shadowColor">Color de Sombra</label>
+                            <input type="color" id="shadowColor" value="#000000">
+                        </div>
+                        <div class="control-item">
+                            <label for="shadowOpacity">Opacidad Sombra (0-1) <span id="shadowOpacityValue">0.5</span></label>
+                            <input type="range" id="shadowOpacity" min="0" max="1" step="0.05" value="0.5">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Texto y Tipografía (10 x 37 x 9 = 3330+ combinaciones)</h3>
+                    <div class="control-row">
+                        <div class="control-item">
+                            <label for="actorName">Texto Principal</label>
+                            <input type="text" id="actorName" placeholder="Ej: Nombre del Actor | Agencia" value="Nombre del Actor | Agencia">
+                        </div>
+                        <div class="control-item">
+                            <label for="textColor">Color del Texto</label>
+                            <input type="color" id="textColor" value="#333333">
+                        </div>
+                        <div class="control-item">
+                            <label for="textSize">Tamaño del Texto <span id="textSizeValue">24px</span></label>
+                            <input type="range" id="textSize" min="10" max="60" value="24">
+                        </div>
+                        <div class="control-item">
+                            <label for="textFont">Fuente</label>
+                            <select id="textFont">
+                                <option value="'Segoe UI', sans-serif">Segoe UI (Default)</option>
+                                <option value="serif">Serif (Clásico)</option>
+                                <option value="'Arial Black', sans-serif">Arial Black (Negrita)</option>
+                                <option value="'Cursive', sans-serif">Cursive (Script)</option>
+                                <option value="'Monospace', monospace">Monospace (Tipewriter)</option>
+                                <option value="'Georgia', serif">Georgia (Elegante)</option>
+                                <option value="'Verdana', sans-serif">Verdana (Legible)</option>
+                                <option value="'Impact', sans-serif">Impact (Fuerte)</option>
+                                <option value="'Roboto', sans-serif">Roboto (Moderno)</option>
+                                <option value="'Oswald', sans-serif">Oswald (Compacto)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <h4>Posición del Texto (9 Opciones)</h4>
+                    <div class="radio-group" id="textPositionGroup">
+                        <input type="radio" id="pos_bottom_center" name="text-pos" value="bottom_center" checked><label for="pos_bottom_center"><i class="fas fa-grip-lines-h"></i> Abajo Centro</label>
+                        <input type="radio" id="pos_bottom_left" name="text-pos" value="bottom_left"><label for="pos_bottom_left"><i class="fas fa-caret-left"></i> Abajo Izq</label>
+                        <input type="radio" id="pos_bottom_right" name="text-pos" value="bottom_right"><label for="pos_bottom_right"><i class="fas fa-caret-right"></i> Abajo Der</label>
+                        <input type="radio" id="pos_center" name="text-pos" value="center"><label for="pos_center"><i class="fas fa-dot-circle"></i> Centro</label>
+                        <input type="radio" id="pos_top_center" name="text-pos" value="top_center"><label for="pos_top_center"><i class="fas fa-grip-lines-h"></i> Arriba Centro</label>
+                        <input type="radio" id="pos_top_left" name="text-pos" value="top_left"><label for="pos_top_left"><i class="fas fa-caret-left"></i> Arriba Izq</label>
+                        <input type="radio" id="pos_top_right" name="text-pos" value="top_right"><label for="pos_top_right"><i class="fas fa-caret-right"></i> Arriba Der</label>
+                        <input type="radio" id="pos_bottom_bar" name="text-pos" value="bottom_bar"><label for="pos_bottom_bar"><i class="fas fa-grip-horizontal"></i> Barra Abajo</label>
+                        <input type="radio" id="pos_top_bar" name="text-pos" value="top_bar"><label for="pos_top_bar"><i class="fas fa-grip-horizontal"></i> Barra Arriba</label>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3>Filtros de Imagen (5 x 20 = 100 combinaciones)</h3>
+                    <p class="filter-range-value">Nota: Los filtros se aplican a la imagen subida (simulación).</p>
+                    <div class="control-row">
+                        <div class="control-item">
+                            <label for="filterGrayscale">Blanco y Negro <span id="grayscaleValue">0%</span></label>
+                            <input type="range" id="filterGrayscale" min="0" max="100" step="5" value="0">
+                        </div>
+                        <div class="control-item">
+                            <label for="filterSepia">Sepia <span id="sepiaValue">0%</span></label>
+                            <input type="range" id="filterSepia" min="0" max="100" step="5" value="0">
+                        </div>
+                        <div class="control-item">
+                            <label for="filterBlur">Desenfoque (Blur) <span id="blurValue">0px</span></label>
+                            <input type="range" id="filterBlur" min="0" max="10" step="0.5" value="0">
+                        </div>
+                        <div class="control-item">
+                            <label for="filterBrightness">Brillo <span id="brightnessValue">100%</span></label>
+                            <input type="range" id="filterBrightness" min="50" max="200" step="10" value="100">
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+        
+        <footer style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(255, 255, 255, 0.1); border-radius: 15px;">
+            <p>Personalizador de Marcos Avanzado &copy; 2025 | Total de Posibilidades de Personalización: <strong>~900+ combinaciones</strong></p>
+        </footer>
+    </div>
+
+    <script>
+        // Elementos DOM
+        const actorFrame = document.getElementById('actorFrame');
+        const frameContainer = document.querySelector('.frame-container');
+        const frameText = document.getElementById('frameText');
+        const frameWidth = document.getElementById('frameWidth');
+        const frameHeight = document.getElementById('frameHeight');
+        const frameRatio = document.getElementById('frameRatio');
+        const actorName = document.getElementById('actorName');
+        const textColor = document.getElementById('textColor');
+        const textSize = document.getElementById('textSize');
+        const frameBorderThickness = document.getElementById('frameBorderThickness');
+        const frameBorderColor = document.getElementById('frameBorderColor');
+        const frameBorderStyle = document.getElementById('frameBorderStyle');
+        const frameCornerRadius = document.getElementById('frameCornerRadius');
+        const frameShadowIntensity = document.getElementById('frameShadowIntensity');
+        const shadowColor = document.getElementById('shadowColor');
+        const shadowOpacity = document.getElementById('shadowOpacity');
+        const textFont = document.getElementById('textFont');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const loadBtn = document.getElementById('loadBtn');
+        const frameStyleOptions = document.getElementById('frameStyleOptions');
+        const textPositionGroup = document.getElementById('textPositionGroup');
+        const imageUploader = document.getElementById('imageUploader');
+        const loading = document.getElementById('loading');
+
+        // Filtros
+        const filterGrayscale = document.getElementById('filterGrayscale');
+        const filterSepia = document.getElementById('filterSepia');
+        const filterBlur = document.getElementById('filterBlur');
+        const filterBrightness = document.getElementById('filterBrightness');
+
+        // Valores de visualización
+        const widthValue = document.getElementById('widthValue');
+        const heightValue = document.getElementById('heightValue');
+        const textSizeValue = document.getElementById('textSizeValue');
+        const borderValue = document.getElementById('borderValue');
+        const radiusValue = document.getElementById('radiusValue');
+        const shadowValue = document.getElementById('shadowValue');
+        const shadowOpacityValue = document.getElementById('shadowOpacityValue');
+        const grayscaleValue = document.getElementById('grayscaleValue');
+        const sepiaValue = document.getElementById('sepiaValue');
+        const blurValue = document.getElementById('blurValue');
+        const brightnessValue = document.getElementById('brightnessValue');
+        
+        let currentFrameBackground = 'linear-gradient(45deg, #f1c40f, #e67e22)';
+        let uploadedImageElement = null;
+
+        // --- FUNCIONES DE ACTUALIZACIÓN ---
+
+        function updateFrameSize() {
+            if (frameRatio.value === 'custom') {
+                frameContainer.style.width = frameWidth.value + 'px';
+                frameContainer.style.height = frameHeight.value + 'px';
+                widthValue.textContent = frameWidth.value + 'px';
+                heightValue.textContent = frameHeight.value + 'px';
+            }
+        }
+
+        function updateFrameBorder() {
+            const thickness = frameBorderThickness.value + 'px';
+            const color = frameBorderColor.value;
+            const style = frameBorderStyle.value;
+            
+            actorFrame.style.border = `${thickness} ${style} ${color}`;
+            actorFrame.style.borderRadius = frameCornerRadius.value + 'px';
+
+            borderValue.textContent = thickness;
+            radiusValue.textContent = frameCornerRadius.value + 'px';
+        }
+
+        function updateFrameShadow() {
+            const intensity = frameShadowIntensity.value;
+            const color = hexToRgbA(shadowColor.value, shadowOpacity.value);
+            frameContainer.style.boxShadow = `0 ${intensity/2}px ${intensity}px ${color}`; 
+            
+            shadowValue.textContent = intensity + 'px';
+            shadowOpacityValue.textContent = shadowOpacity.value;
+        }
+
+        function updateFrameText() {
+            frameText.textContent = actorName.value;
+            frameText.style.color = textColor.value;
+            frameText.style.fontSize = textSize.value + 'px';
+            frameText.style.fontFamily = textFont.value;
+            textSizeValue.textContent = textSize.value + 'px';
+        }
+        
+        function updateTextPosition() {
+            const position = document.querySelector('input[name="text-pos"]:checked').value;
+            
+            // Resetear estilos de posición
+            frameText.style.top = 'auto';
+            frameText.style.bottom = '20px';
+            frameText.style.left = '0';
+            frameText.style.right = '0';
+            frameText.style.transform = 'none';
+            frameText.style.width = '100%';
+            frameText.style.backgroundColor = 'rgba(255, 255, 255, 0.8)';
+            frameText.style.padding = '5px 10px';
+
+            switch(position) {
+                case 'bottom_center':
+                    frameText.style.textAlign = 'center';
+                    break;
+                case 'bottom_left':
+                    frameText.style.textAlign = 'left';
+                    frameText.style.left = '10px';
+                    frameText.style.right = 'auto';
+                    frameText.style.width = 'auto';
+                    break;
+                case 'bottom_right':
+                    frameText.style.textAlign = 'right';
+                    frameText.style.right = '10px';
+                    frameText.style.left = 'auto';
+                    frameText.style.width = 'auto';
+                    break;
+                case 'center':
+                    frameText.style.bottom = '50%';
+                    frameText.style.transform = 'translateY(50%)';
+                    frameText.style.textAlign = 'center';
+                    break;
+                case 'top_center':
+                    frameText.style.top = '20px';
+                    frameText.style.bottom = 'auto';
+                    frameText.style.textAlign = 'center';
+                    break;
+                case 'top_left':
+                    frameText.style.top = '20px';
+                    frameText.style.bottom = 'auto';
+                    frameText.style.textAlign = 'left';
+                    frameText.style.left = '10px';
+                    frameText.style.right = 'auto';
+                    frameText.style.width = 'auto';
+                    break;
+                case 'top_right':
+                    frameText.style.top = '20px';
+                    frameText.style.bottom = 'auto';
+                    frameText.style.textAlign = 'right';
+                    frameText.style.right = '10px';
+                    frameText.style.left = 'auto';
+                    frameText.style.width = 'auto';
+                    break;
+                case 'bottom_bar':
+                    frameText.style.textAlign = 'center';
+                    frameText.style.backgroundColor = 'var(--secondary-color)';
+                    frameText.style.color = 'white';
+                    frameText.style.padding = '10px';
+                    frameText.style.fontWeight = 'bold';
+                    break;
+                case 'top_bar':
+                    frameText.style.top = '0';
+                    frameText.style.bottom = 'auto';
+                    frameText.style.textAlign = 'center';
+                    frameText.style.backgroundColor = 'var(--secondary-color)';
+                    frameText.style.color = 'white';
+                    frameText.style.padding = '10px';
+                    frameText.style.fontWeight = 'bold';
+                    break;
+            }
+        }
+        
+        function updateFrameRatio() {
+            const ratio = frameRatio.value;
+            if (ratio === 'custom') {
+                frameWidth.disabled = false;
+                frameHeight.disabled = false;
+            } else {
+                frameWidth.disabled = true;
+                frameHeight.disabled = true;
+
+                let width = 400;
+                let height;
+
+                if (ratio === '3/4') height = Math.round(width * 4 / 3);
+                else if (ratio === '4/3') height = Math.round(width * 3 / 4);
+                else if (ratio === '1/1') height = width;
+                else if (ratio === '16/9') height = Math.round(width * 9 / 16);
+
+                frameWidth.value = width;
+                frameHeight.value = height;
+            }
+            updateFrameSize();
+        }
+
+        function updateImageFilters() {
+            const grayscale = filterGrayscale.value + '%';
+            const sepia = filterSepia.value + '%';
+            const blur = filterBlur.value + 'px';
+            const brightness = filterBrightness.value + '%';
+            
+            const filterString = `grayscale(${grayscale}) sepia(${sepia}) blur(${blur}) brightness(${brightness})`;
+            
+            if (uploadedImageElement) {
+                uploadedImageElement.style.filter = filterString;
+            } else {
+                actorFrame.style.filter = filterString;
+            }
+
+            grayscaleValue.textContent = grayscale;
+            sepiaValue.textContent = sepia;
+            blurValue.textContent = blur;
+            brightnessValue.textContent = brightness;
+        }
+
+        function applyFrameStyle(styleNum) {
+            actorFrame.style.border = `${frameBorderThickness.value}px ${frameBorderStyle.value} ${frameBorderColor.value}`;
+
+            switch(styleNum) {
+                case '1': currentFrameBackground = 'linear-gradient(45deg, #f1c40f, #e67e22)'; break;
+                case '2': currentFrameBackground = 'linear-gradient(45deg, #3498db, #9b59b6)'; break;
+                case '3': currentFrameBackground = 'linear-gradient(45deg, #2ecc71, #1abc9c)'; break;
+                case '4': currentFrameBackground = 'linear-gradient(45deg, #e74c3c, #c0392b)'; break;
+                case '5': currentFrameBackground = 'linear-gradient(45deg, #34495e, #2c3e50)'; break;
+                case '6': currentFrameBackground = 'linear-gradient(45deg, #ecf0f1, #bdc3c7)'; break;
+                case '7': currentFrameBackground = 'radial-gradient(#ffeaa7, #fdcb6e)'; break;
+                case '8': 
+                    currentFrameBackground = 'repeating-linear-gradient(45deg, #00b894, #00b894 10px, #009975 10px, #009975 20px)'; 
+                    break;
+                case '9': currentFrameBackground = 'radial-gradient(circle, #a29bfe, #6c5ce7)'; break;
+                case '10': currentFrameBackground = 'linear-gradient(to right, #ffffff 50%, #000000 50%)'; break;
+            }
+            actorFrame.style.background = currentFrameBackground;
+            updateFrameBorder();
+        }
+
+        function hexToRgbA(hex, opacity){
+            var c;
+            if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+                c= hex.substring(1).split('');
+                if(c.length== 3){
+                    c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+                }
+                c= '0x'+c.join('');
+                return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+','+opacity+')';
+            }
+            return 'rgba(0, 0, 0, 0.5)';
+        }
+
+        // --- FUNCIONES NUEVAS ---
+
+        function downloadFrame() {
+            loading.classList.remove('hidden');
+            
+            // Usar html2canvas para capturar el marco
+            html2canvas(actorFrame, {
+                scale: 2, // Mejor calidad
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: null
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'marco-actor-personalizado.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                loading.classList.add('hidden');
+            }).catch(error => {
+                console.error('Error al generar la imagen:', error);
+                alert('Error al generar la imagen. Intente de nuevo.');
+                loading.classList.add('hidden');
+            });
+        }
+
+        function saveConfiguration() {
+            const config = {
+                frameWidth: frameWidth.value,
+                frameHeight: frameHeight.value,
+                frameRatio: frameRatio.value,
+                actorName: actorName.value,
+                textColor: textColor.value,
+                textSize: textSize.value,
+                frameBorderThickness: frameBorderThickness.value,
+                frameBorderColor: frameBorderColor.value,
+                frameBorderStyle: frameBorderStyle.value,
+                frameCornerRadius: frameCornerRadius.value,
+                frameShadowIntensity: frameShadowIntensity.value,
+                shadowColor: shadowColor.value,
+                shadowOpacity: shadowOpacity.value,
+                textFont: textFont.value,
+                filterGrayscale: filterGrayscale.value,
+                filterSepia: filterSepia.value,
+                filterBlur: filterBlur.value,
+                filterBrightness: filterBrightness.value,
+                frameStyle: document.querySelector('.style-option.active').getAttribute('data-style'),
+                textPosition: document.querySelector('input[name="text-pos"]:checked').value
+            };
+            
+            const configJSON = JSON.stringify(config);
+            localStorage.setItem('actorFrameConfig', configJSON);
+            alert('Configuración guardada correctamente.');
+        }
+
+        function loadConfiguration() {
+            const configJSON = localStorage.getItem('actorFrameConfig');
+            if (!configJSON) {
+                alert('No hay configuraciones guardadas.');
+                return;
+            }
+            
+            const config = JSON.parse(configJSON);
+            
+            // Aplicar configuración
+            frameWidth.value = config.frameWidth;
+            frameHeight.value = config.frameHeight;
+            frameRatio.value = config.frameRatio;
+            actorName.value = config.actorName;
+            textColor.value = config.textColor;
+            textSize.value = config.textSize;
+            frameBorderThickness.value = config.frameBorderThickness;
+            frameBorderColor.value = config.frameBorderColor;
+            frameBorderStyle.value = config.frameBorderStyle;
+            frameCornerRadius.value = config.frameCornerRadius;
+            frameShadowIntensity.value = config.frameShadowIntensity;
+            shadowColor.value = config.shadowColor;
+            shadowOpacity.value = config.shadowOpacity;
+            textFont.value = config.textFont;
+            filterGrayscale.value = config.filterGrayscale;
+            filterSepia.value = config.filterSepia;
+            filterBlur.value = config.filterBlur;
+            filterBrightness.value = config.filterBrightness;
+            
+            // Aplicar estilo de marco
+            frameStyleOptions.querySelectorAll('.style-option').forEach(s => s.classList.remove('active'));
+            frameStyleOptions.querySelector(`[data-style="${config.frameStyle}"]`).classList.add('active');
+            applyFrameStyle(config.frameStyle);
+            
+            // Aplicar posición de texto
+            document.querySelector(`#pos_${config.textPosition}`).checked = true;
+            
+            // Actualizar todo
+            updateFrameRatio();
+            updateFrameSize();
+            updateFrameText();
+            updateFrameBorder();
+            updateFrameShadow();
+            updateTextPosition();
+            updateImageFilters();
+            
+            alert('Configuración cargada correctamente.');
+        }
+
+        // --- MANEJADORES DE EVENTOS ---
+        
+        frameWidth.addEventListener('input', updateFrameSize);
+        frameHeight.addEventListener('input', updateFrameSize);
+        frameRatio.addEventListener('change', updateFrameRatio);
+        actorName.addEventListener('input', updateFrameText);
+        textColor.addEventListener('input', updateFrameText);
+        textSize.addEventListener('input', updateFrameText);
+        textFont.addEventListener('change', updateFrameText);
+        frameShadowIntensity.addEventListener('input', updateFrameShadow);
+        shadowColor.addEventListener('input', updateFrameShadow);
+        shadowOpacity.addEventListener('input', updateFrameShadow);
+        frameBorderThickness.addEventListener('input', updateFrameBorder);
+        frameBorderColor.addEventListener('input', updateFrameBorder);
+        frameBorderStyle.addEventListener('change', updateFrameBorder);
+        frameCornerRadius.addEventListener('input', updateFrameBorder);
+
+        filterGrayscale.addEventListener('input', updateImageFilters);
+        filterSepia.addEventListener('input', updateImageFilters);
+        filterBlur.addEventListener('input', updateImageFilters);
+        filterBrightness.addEventListener('input', updateImageFilters);
+
+        // Posición del Texto
+        textPositionGroup.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', updateTextPosition);
+        });
+        
+        // Estilos de Marco
+        frameStyleOptions.querySelectorAll('.style-option').forEach(style => {
+            style.addEventListener('click', function() {
+                frameStyleOptions.querySelectorAll('.style-option').forEach(s => s.classList.remove('active'));
+                this.classList.add('active');
+                applyFrameStyle(this.getAttribute('data-style'));
+            });
+        });
+
+        // Subida de Imagen
+        imageUploader.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Remover placeholder
+                    const placeholder = actorFrame.querySelector('.fa-camera');
+                    if (placeholder) placeholder.remove();
+
+                    // Si ya hay una imagen, la actualiza. Si no, crea una.
+                    if (uploadedImageElement) {
+                        uploadedImageElement.src = e.target.result;
+                    } else {
+                        uploadedImageElement = document.createElement('img');
+                        uploadedImageElement.src = e.target.result;
+                        uploadedImageElement.style.position = 'absolute';
+                        uploadedImageElement.style.width = '100%';
+                        uploadedImageElement.style.height = '100%';
+                        uploadedImageElement.style.objectFit = 'cover';
+                        uploadedImageElement.style.zIndex = '1';
+                        // Asegurar que el texto esté por encima de la imagen
+                        frameText.style.zIndex = '2';
+                        actorFrame.prepend(uploadedImageElement);
+                    }
+                    updateImageFilters();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Botón de descarga
+        downloadBtn.addEventListener('click', downloadFrame);
+        
+        // Botón de guardar configuración
+        saveBtn.addEventListener('click', saveConfiguration);
+        
+        // Botón de cargar configuración
+        loadBtn.addEventListener('click', loadConfiguration);
+        
+        // Botón de restablecer
+        resetBtn.addEventListener('click', function() {
+            if (confirm('¿Estás seguro de que quieres restablecer toda la configuración?')) {
+                // Restablecer valores de entrada
+                frameWidth.value = 400;
+                frameHeight.value = 533;
+                frameRatio.value = "3/4";
+                actorName.value = "Nombre del Actor | Agencia";
+                textColor.value = "#333333";
+                textSize.value = 24;
+                frameBorderThickness.value = 15;
+                frameBorderColor.value = "#000000";
+                frameBorderStyle.value = "solid";
+                frameCornerRadius.value = 0;
+                frameShadowIntensity.value = 10;
+                shadowColor.value = "#000000";
+                shadowOpacity.value = 0.5;
+                textFont.value = "'Segoe UI', sans-serif";
+                
+                filterGrayscale.value = 0;
+                filterSepia.value = 0;
+                filterBlur.value = 0;
+                filterBrightness.value = 100;
+
+                // Restablecer estilos de marco y texto (Estilo 1)
+                frameStyleOptions.querySelector('.active').classList.remove('active');
+                frameStyleOptions.querySelector('[data-style="1"]').classList.add('active');
+                applyFrameStyle('1');
+
+                // Restablecer posición del texto (Abajo Centro)
+                document.getElementById('pos_bottom_center').checked = true;
+
+                // Aplicar y actualizar todo
+                updateFrameRatio(); 
+                updateFrameSize();
+                updateFrameText();
+                updateFrameBorder();
+                updateFrameShadow();
+                updateTextPosition();
+                updateImageFilters();
+
+                // Eliminar imagen subida si existe
+                if (uploadedImageElement) {
+                    uploadedImageElement.remove();
+                    uploadedImageElement = null;
+                    
+                    // Restaurar placeholder
+                    const placeholderDiv = document.createElement('div');
+                    placeholderDiv.style.position = 'absolute';
+                    placeholderDiv.style.top = '0';
+                    placeholderDiv.style.left = '0';
+                    placeholderDiv.style.right = '0';
+                    placeholderDiv.style.bottom = '0';
+                    placeholderDiv.style.display = 'flex';
+                    placeholderDiv.style.alignItems = 'center';
+                    placeholderDiv.style.justifyContent = 'center';
+                    
+                    const cameraIcon = document.createElement('i');
+                    cameraIcon.className = 'fas fa-camera';
+                    cameraIcon.style.fontSize = '5rem';
+                    cameraIcon.style.color = '#ccc';
+                    
+                    placeholderDiv.appendChild(cameraIcon);
+                    actorFrame.appendChild(placeholderDiv);
+                }
+            }
+        });
+        
+        // Inicializar
+        updateFrameRatio();
+        applyFrameStyle('1');
+        updateFrameText();
+        updateFrameShadow();
+        updateTextPosition();
+        updateImageFilters();
+
+    </script>
+</body>
+</html>
