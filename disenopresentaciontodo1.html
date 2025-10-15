@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería Creativa</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #8A2BE2;
+      --secondary: #FF6B8B;
+      --accent: #00CED1;
+      --gold: #FFD700;
+      --dark: #0F0F1E;
+      --light: #F8F9FA;
+      --transition: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0F0F1E 0%, #1A1A2E 50%, #16213E 100%);
+      color: var(--light);
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 20px;
+      position: relative;
+          border-radius: 10px;
+  max-width: 1200px;
+  margin: 90px auto;
+    }
+    
+    /* Fondo animado de lujo */
+    .fondo-lujo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+      background: radial-gradient(circle at 20% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255, 107, 139, 0.1) 0%, transparent 50%),
+                  radial-gradient(circle at 40% 40%, rgba(0, 206, 209, 0.1) 0%, transparent 50%);
+    }
+    
+    .imagen-fondo {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 20px;
+      opacity: 0.7;
+      box-shadow: 
+        0 0 30px rgba(255, 215, 0, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+      object-fit: cover;
+      filter: brightness(1.1) contrast(1.1);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      animation: movimientoLujoso 40s infinite linear;
+    }
+    
+    /* Animaciones en todas direcciones */
+    .imagen-fondo:nth-child(1) {
+      top: 5%;
+      left: 5%;
+      animation-delay: 0s;
+      animation-duration: 35s;
+      transform: rotate(0deg);
+    }
+    
+    .imagen-fondo:nth-child(2) {
+      top: 15%;
+      right: 10%;
+      animation-delay: 3s;
+      animation-duration: 40s;
+      transform: rotate(90deg);
+    }
+    
+    .imagen-fondo:nth-child(3) {
+      bottom: 20%;
+      left: 15%;
+      animation-delay: 6s;
+      animation-duration: 45s;
+      transform: rotate(180deg);
+    }
+    
+    .imagen-fondo:nth-child(4) {
+      bottom: 10%;
+      right: 5%;
+      animation-delay: 9s;
+      animation-duration: 38s;
+      transform: rotate(270deg);
+    }
+    
+    .imagen-fondo:nth-child(5) {
+      top: 60%;
+      left: 5%;
+      animation-delay: 12s;
+      animation-duration: 42s;
+      transform: rotate(45deg);
+    }
+    
+    .imagen-fondo:nth-child(6) {
+      top: 30%;
+      right: 20%;
+      animation-delay: 15s;
+      animation-duration: 37s;
+      transform: rotate(135deg);
+    }
+    
+    .imagen-fondo:nth-child(7) {
+      bottom: 30%;
+      right: 30%;
+      animation-delay: 18s;
+      animation-duration: 44s;
+      transform: rotate(225deg);
+    }
+    
+    .imagen-fondo:nth-child(8) {
+      top: 70%;
+      right: 10%;
+      animation-delay: 21s;
+      animation-duration: 39s;
+      transform: rotate(315deg);
+    }
+    
+    @keyframes movimientoLujoso {
+      0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.7;
+      }
+      25% {
+        transform: translate(100px, 80px) rotate(90deg) scale(1.1);
+        opacity: 0.5;
+      }
+      50% {
+        transform: translate(-80px, -100px) rotate(180deg) scale(0.9);
+        opacity: 0.8;
+      }
+      75% {
+        transform: translate(120px, -60px) rotate(270deg) scale(1.05);
+        opacity: 0.6;
+      }
+      100% {
+        transform: translate(0, 0) rotate(360deg) scale(1);
+        opacity: 0.7;
+      }
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Header y título */
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+    }
+    
+    .title {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, var(--gold), var(--primary), var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 15px;
+      text-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+      letter-spacing: 2px;
+      animation: tituloBrillo 3s infinite alternate;
+    }
+    
+    @keyframes tituloBrillo {
+      0% {
+        filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+      }
+      100% {
+        filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+      }
+    }
+    
+    .subtitle {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      margin-bottom: 40px;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+    
+    /* Portada principal de lujo */
+    .portada-container {
+      position: relative;
+      margin: 0 auto 60px;
+      max-width: 650px;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.6),
+        0 0 0 1px rgba(255, 215, 0, 0.2),
+        inset 0 0 30px rgba(255, 255, 255, 0.1);
+      transform: perspective(1000px) rotateX(5deg);
+      transition: var(--transition);
+      border: 2px solid transparent;
+      background: linear-gradient(45deg, var(--primary), var(--accent), var(--secondary), var(--gold));
+      background-size: 400% 400%;
+      animation: bordeAnimado 8s infinite linear;
+      padding: 8px;
+    }
+    
+    @keyframes bordeAnimado {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    
+    .portada-container:hover {
+      transform: perspective(1000px) rotateX(0deg) scale(1.03);
+      box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.7),
+        0 0 0 2px rgba(255, 215, 0, 0.4),
+        inset 0 0 40px rgba(255, 255, 255, 0.2);
+    }
+    
+    .portada {
+      width: 100%;
+      display: block;
+      border-radius: 20px;
+      transition: var(--transition);
+    }
+    
+    .portada-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+      padding: 40px 20px 25px;
+      text-align: center;
+      opacity: 0;
+      transition: var(--transition);
+      backdrop-filter: blur(5px);
+    }
+    
+    .portada-container:hover .portada-overlay {
+      opacity: 1;
+    }
+    
+    /* Botones de lujo */
+    .botones {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin-bottom: 60px;
+    }
+    
+    .btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 25px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: var(--transition);
+      color: white;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 260px;
+      text-align: center;
+    }
+    
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.6s;
+    }
+    
+    .btn:hover::before {
+      left: 100%;
+    }
+    
+    .btn:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+    
+    .btn i {
+      font-size: 2.2rem;
+      z-index: 1;
+    }
+    
+    .btn span {
+      z-index: 1;
+      font-size: 1.3rem;
+    }
+    
+    .btn-desc {
+      font-size: 0.9rem;
+      font-weight: 400;
+      opacity: 0.9;
+      z-index: 1;
+      line-height: 1.4;
+    }
+    
+    .btn-art { 
+      background: linear-gradient(135deg, rgba(255, 107, 139, 0.3), rgba(255, 107, 139, 0.1));
+      border: 1px solid rgba(255, 107, 139, 0.3);
+    }
+    
+    .btn-design { 
+      background: linear-gradient(135deg, rgba(0, 206, 209, 0.3), rgba(0, 206, 209, 0.1));
+      border: 1px solid rgba(0, 206, 209, 0.3);
+    }
+    
+    .btn-music { 
+      background: linear-gradient(135deg, rgba(147, 112, 219, 0.3), rgba(147, 112, 219, 0.1));
+      border: 1px solid rgba(147, 112, 219, 0.3);
+    }
+    
+    .btn-photo { 
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.1));
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+    
+    /* Galería de lujo */
+    .gallery-section {
+      margin-top: 80px;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(45deg, var(--gold), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 10%;
+      width: 80%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--accent), transparent);
+      border-radius: 3px;
+    }
+    
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .gallery-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      transition: var(--transition);
+      height: 260px;
+      background: linear-gradient(135deg, rgba(42, 45, 72, 0.7), rgba(26, 26, 46, 0.7));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+    }
+    
+    .gallery-item:hover {
+      transform: translateY(-15px) scale(1.05);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+    }
+    
+    .gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .gallery-item:hover .gallery-img {
+      transform: scale(1.15);
+    }
+    
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+      padding: 25px;
+      transform: translateY(100%);
+      transition: var(--transition);
+      backdrop-filter: blur(5px);
+    }
+    
+    .gallery-item:hover .gallery-overlay {
+      transform: translateY(0);
+    }
+    
+    /* Efectos de partículas doradas */
+    .particulas-doradas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .particula {
+      position: absolute;
+      background: radial-gradient(circle, var(--gold), transparent);
+      border-radius: 50%;
+      opacity: 0;
+      animation: particulaFlotante 15s infinite linear;
+    }
+    
+    @keyframes particulaFlotante {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.7;
+      }
+      90% {
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    /* Footer de lujo */
+    .footer {
+      text-align: center;
+      margin-top: 100px;
+      padding: 40px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+    
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 25%;
+      width: 50%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 30px;
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-size: 1.5rem;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+    }
+    
+    .social-link:hover {
+      background: var(--gold);
+      color: var(--dark);
+      transform: translateY(-8px) scale(1.1);
+      box-shadow: 0 10px 20px rgba(255, 215, 0, 0.4);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .title {
+        font-size: 2.8rem;
+      }
+      
+      .botones {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .btn {
+        width: 280px;
+      }
+      
+      .galeria {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+      
+      .imagen-fondo {
+        width: 120px;
+        height: 120px;
+      }
+    }
+      .cuadro {
+  background-color: #ffffff;
+  border: 3px solid #4CAF50;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.boton {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.boton:hover {
+  background-color: #45a049;
+}
+  </style>
+</head>
+<body>
+
+  <div class="fondo-lujo">
+    <img src="portadafoto.png" class="imagen-fondo">
+    <img src="portadafoto.png" class="imagen-fondo">
+    <img src="portadafoto.png" class="imagen-fondo">
+    <img src="portadafoto.png" class="imagen-fondo">
+    <img src="portadafoto.png" class="imagen-fondo">
+    <img src="portadafoto.png" class="imagen-fondo">
+    <img src="portadafoto.png" class="imagen-fondo">
+    <img src="portadafoto.png" class="imagen-fondo">
+  </div>
+  
+  <div class="particulas-doradas" id="particulas"></div>
+
+  <div class="container">
+    <header class="header">
+      <h1 class="title">Galería Creativa</h1>
+      <p class="subtitle">Explora tus habilidades artísticas y creativas</p>
+      
+      <div class="portada-container">
+        <img src="portadafoto.png" class="portada" alt="Portada principal">
+        <div class="portada-overlay">
+          <h3>Tu Espacio Creativo</h3>
+          <p>Descubre herramientas para expresar tu arte</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="botones">
+      <button class="btn btn-art" onclick="location.href='dibujosmedium.html'">
+        <i class="fas fa-palette"></i>
+        <span>Dibujos y Arte</span>
+        <div class="btn-desc">Sube fotos, crea dibujos y descarga tus obras. Accede a dibujosmedium.html y dibujosavanzado.html</div>
+      </button>
+      
+      <button class="btn btn-design" onclick="location.href='otro.html'">
+        <i class="fas fa-pencil-alt"></i>
+        <span>Diseño Gráfico</span>
+        <div class="btn-desc">Crea diseños profesionales y explora tu creatividad visual</div>
+      </button>
+      
+      <button class="btn btn-music" onclick="location.href='musica.html'">
+        <i class="fas fa-music"></i>
+        <span>Texto a Música</span>
+        <div class="btn-desc">Convierte tu texto en melodías únicas. Accede a musica.html para crear composiciones</div>
+      </button>
+      
+      <button class="btn btn-photo" onclick="location.href='cambiafoto.html'">
+        <i class="fas fa-camera"></i>
+        <span>Fotos Profesionales</span>
+        <div class="btn-desc">Transforma tus fotos, crea logos y convierte tus dibujos en imágenes profesionales. Accede a cambiafoto.html</div>
+      </button>
+    </div>
+
+    <section class="gallery-section">
+      <h2 class="section-title">Proyectos Destacados</h2>
+      <div class="galeria">
+        <div class="gallery-item">
+          <img src="portadafoto.png" class="gallery-img" alt="Proyecto 1">
+          <div class="gallery-overlay">
+            <h3>Dibujos Digitales</h3>
+            <p>Explora diferentes técnicas y estilos</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="portadafoto.png" class="gallery-img" alt="Proyecto 2">
+          <div class="gallery-overlay">
+            <h3>Composiciones Musicales</h3>
+            <p>Texto convertido en melodías</p>
+          </div>
+        </div>
+        <div class="gallery-item">
+          <img src="portadafoto.png" class="gallery-img" alt="Proyecto 3">
+          <div class="gallery-overlay">
+            <h3>Fotografía Profesional</h3>
+            <p>Transforma tus imágenes en cambiafoto.html</p>
+          </div>
+        </div>
+      </div>
+        <div class="cuadro">
+    <a href="index.html" class="boton">Volver Atrás</a>
+  </div>
+    </section>
+
+
+  </div>
+
+  <script>
+    // Crear partículas doradas
+    document.addEventListener('DOMContentLoaded', function() {
+      const particulasContainer = document.getElementById('particulas');
+      const particulaCount = 25;
+      
+      for (let i = 0; i < particulaCount; i++) {
+        const particula = document.createElement('div');
+        particula.classList.add('particula');
+        
+        // Tamaño y posición aleatorios
+        const size = Math.random() * 8 + 3;
+        const left = Math.random() * 100;
+        const animationDuration = Math.random() * 15 + 10;
+        const animationDelay = Math.random() * 10;
+        
+        particula.style.width = `${size}px`;
+        particula.style.height = `${size}px`;
+        particula.style.left = `${left}vw`;
+        particula.style.animationDuration = `${animationDuration}s`;
+        particula.style.animationDelay = `${animationDelay}s`;
+        
+        particulasContainer.appendChild(particula);
+      }
+      
+      // Efectos de aparición para elementos
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+      
+      // Aplicar a elementos que queremos animar al aparecer
+      const animatedElements = document.querySelectorAll('.gallery-item, .btn, .portada-container');
+      animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(40px)';
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        observer.observe(el);
+      });
+    });
+  </script>
+</body>
+</html>
