@@ -20,9 +20,9 @@
             min-height: 100vh;
             color: #333;
             padding: 20px;
-                border-radius: 10px;
-  max-width: 1200px;
-  margin: 90px auto;
+            border-radius: 10px;
+            max-width: 1200px;
+            margin: 90px auto;
         }
         
         @keyframes gradient {
@@ -133,6 +133,20 @@
             font-size: 1.2rem;
         }
         
+        .stats {
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .stats span {
+            font-weight: bold;
+            color: #6a11cb;
+        }
+        
         /* Patrón de galería */
         .gallery {
             display: grid;
@@ -192,6 +206,19 @@
             font-weight: 600;
             z-index: 2;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .missing-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            z-index: 2;
         }
         
         .pagination {
@@ -329,6 +356,10 @@
             <p class="subtitle">Fotos 1 a 99</p>
         </header>
         
+        <div class="stats" id="stats">
+            Detectando imágenes disponibles...
+        </div>
+        
         <div class="controls">
             <div class="search-box">
                 <input type="text" id="search" placeholder="Buscar por número de foto...">
@@ -345,7 +376,14 @@
             <!-- La paginación se generará dinámicamente -->
         </div>
         
-     
+        <footer>
+            <p>Galería de Fotos | Fotos del 1 al 99</p>
+            <div class="footer-icons">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </footer>
     </div>
 
     <script>
@@ -353,24 +391,73 @@
             const gallery = document.getElementById('gallery');
             const pagination = document.getElementById('pagination');
             const searchInput = document.getElementById('search');
+            const statsElement = document.getElementById('stats');
             
             const photosPerPage = 20;
             let currentPage = 1;
             let currentPhotos = [];
+            let availablePhotos = [];
             
-            // Generar las fotos del 1 al 99 con extensión .PNG
-            function generatePhotos() {
-                const photos = [];
+            // Función para verificar si una imagen existe
+            function checkImageExists(url, callback) {
+                const img = new Image();
+                img.onload = function() {
+                    callback(true);
+                };
+                img.onerror = function() {
+                    callback(false);
+                };
+                img.src = url;
+            }
+            
+            // Detectar imágenes disponibles
+            async function detectAvailablePhotos() {
+                statsElement.textContent = "Detectando imágenes disponibles...";
+                availablePhotos = [];
+                
+                // Crear un array de promesas para verificar todas las imágenes
+                const checkPromises = [];
+                
                 for (let i = 1; i <= 99; i++) {
-                    photos.push({
-                        id: i,
-                        src: `FOTO${i}.PNG`,
-                        alt: `Foto ${i}`,
-                        date: generarFechaAleatoria(),
-                        featured: i % 7 === 0 // Cada 7 fotos es destacada
+                    const photoUrl = `FOTO${i}.PNG`;
+                    
+                    const promise = new Promise((resolve) => {
+                        checkImageExists(photoUrl, (exists) => {
+                            if (exists) {
+                                availablePhotos.push({
+                                    id: i,
+                                    src: photoUrl,
+                                    alt: `Foto ${i}`,
+                                    date: generarFechaAleatoria(),
+                                    featured: i % 7 === 0, // Cada 7 fotos es destacada
+                                    exists: true
+                                });
+                            } else {
+                                availablePhotos.push({
+                                    id: i,
+                                    src: photoUrl,
+                                    alt: `Foto ${i}`,
+                                    date: generarFechaAleatoria(),
+                                    featured: i % 7 === 0,
+                                    exists: false
+                                });
+                            }
+                            resolve();
+                        });
                     });
+                    
+                    checkPromises.push(promise);
                 }
-                return photos;
+                
+                // Esperar a que todas las verificaciones se completen
+                await Promise.all(checkPromises);
+                
+                // Actualizar estadísticas
+                const existingPhotos = availablePhotos.filter(photo => photo.exists).length;
+                statsElement.innerHTML = `Se detectaron <span>${existingPhotos}</span> imágenes de <span>99</span> posibles`;
+                
+                // Mostrar todas las fotos (existentes y no existentes)
+                displayPhotos(availablePhotos);
             }
             
             // Función para generar fechas aleatorias
@@ -386,10 +473,13 @@
             }
             
             // Generar imagen placeholder
-            function generarImagenPlaceholder(id) {
+            function generarImagenPlaceholder(id, exists = true) {
                 const colors = ['#6a11cb', '#2575fc', '#ff8c00', '#ff0080', '#00b09b', '#96c93d'];
                 const color1 = colors[Math.floor(Math.random() * colors.length)];
                 const color2 = colors[Math.floor(Math.random() * colors.length)];
+                
+                const statusText = exists ? "Imagen disponible" : "Imagen no encontrada";
+                const statusColor = exists ? "#4CAF50" : "#F44336";
                 
                 return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
                     <svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 300 200">
@@ -401,16 +491,21 @@
                         </defs>
                         <rect fill="url(#grad${id})" width="300" height="200"/>
                         <text fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold" 
-                              x="50%" y="45%" text-anchor="middle" dominant-baseline="middle">
+                              x="50%" y="40%" text-anchor="middle" dominant-baseline="middle">
                             Foto ${id}
                         </text>
                         <text fill="rgba(255,255,255,0.8)" font-family="Arial, sans-serif" font-size="14" 
-                              x="50%" y="60%" text-anchor="middle" dominant-baseline="middle">
-                            Galería de Fotos
+                              x="50%" y="55%" text-anchor="middle" dominant-baseline="middle">
+                            ${exists ? "Galería de Fotos" : "No disponible"}
                         </text>
                         <text fill="rgba(255,255,255,0.7)" font-family="Arial, sans-serif" font-size="12" 
-                              x="50%" y="75%" text-anchor="middle" dominant-baseline="middle">
+                              x="50%" y="70%" text-anchor="middle" dominant-baseline="middle">
                             FOTO${id}.PNG
+                        </text>
+                        <rect fill="${statusColor}" x="100" y="160" width="100" height="20" rx="10"/>
+                        <text fill="white" font-family="Arial, sans-serif" font-size="10" font-weight="bold"
+                              x="50%" y="172" text-anchor="middle" dominant-baseline="middle">
+                            ${statusText}
                         </text>
                     </svg>
                 `)}`;
@@ -435,16 +530,22 @@
                     
                     // Crear imagen
                     const img = document.createElement('img');
-                    img.src = photo.src;
+                    img.src = photo.exists ? photo.src : generarImagenPlaceholder(photo.id, false);
                     img.alt = photo.alt;
                     img.loading = "lazy"; // Carga diferida para mejor rendimiento
-                    img.onerror = function() {
-                        // Si la imagen no se carga, mostrar un placeholder
-                        this.src = generarImagenPlaceholder(photo.id);
-                    };
+                    
+                    // Si la imagen existe, intentar cargarla
+                    if (photo.exists) {
+                        img.onerror = function() {
+                            // Si la imagen no se carga aunque se detectó como existente
+                            this.src = generarImagenPlaceholder(photo.id, false);
+                            photo.exists = false;
+                        };
+                    }
                     
                     photoCard.innerHTML = `
-                        ${photo.featured ? '<div class="photo-badge"><i class="fas fa-star"></i> Destacada</div>' : ''}
+                        ${photo.featured && photo.exists ? '<div class="photo-badge"><i class="fas fa-star"></i> Destacada</div>' : ''}
+                        ${!photo.exists ? '<div class="missing-badge"><i class="fas fa-exclamation-triangle"></i> No disponible</div>' : ''}
                         <div class="photo-info">
                             <div class="photo-number">Foto ${photo.id}</div>
                             <div class="photo-date">${photo.date}</div>
@@ -501,15 +602,14 @@
             
             // Filtrar fotos por búsqueda
             function filterPhotos(query) {
-                const filtered = allPhotos.filter(photo => 
+                const filtered = availablePhotos.filter(photo => 
                     photo.id.toString().includes(query)
                 );
                 displayPhotos(filtered);
             }
             
             // Inicializar la galería
-            const allPhotos = generatePhotos();
-            displayPhotos(allPhotos);
+            detectAvailablePhotos();
             
             // Event listeners
             searchInput.addEventListener('input', (e) => {
